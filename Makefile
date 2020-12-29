@@ -61,3 +61,6 @@ release:
 	zip -r $(PROJECTRELEASEDIR)$(archivename).zip $(archivename)/*;\
 	popd;\
 	echo "[DONE]"
+
+push:
+	git push -u github master
