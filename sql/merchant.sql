@@ -1,4 +1,4 @@
-create table achilles.__seller (
+create table achilles.__merchant (
     "id" serial unqiue not null primary key,
     "name" text unique,
     "type" text,
