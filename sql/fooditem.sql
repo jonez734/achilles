@@ -1,18 +1,18 @@
 create or replace view achilles.fooditem as
   select n.*,
+    (n.attributes->>'brandid')::bigint as brandid,
+    (n.attributes->>'manufid')::bigint as manufid,
     (n.attributes->>'upc')::text as upc,
     (n.attributes->>'sku')::text as sku,
     (n.attributes->>'name')::text as name,
     (n.attributes->>'title')::text as title,
-    (n.attributes->>'manufid')::bigint as manufid,
+    (n.attributes->>'ingredients') as ingredients,
     (n.attributes->>'description')::text as description,
-    (n.attributes->>'labeladditives') as labeladditives,
-    (n.attributes->>'actualadditives') as actualadditives,
-    (n.attributes->>'testedbyid') as testedbyid,
-    (n.attributes->>'datetested') as datetested,
+--    (n.attributes->>'testedbyid') as testedbyid,
+--    (n.attributes->>'datetested') as datetested,
     (n.attributes->>'frozen')::boolean as frozen
   from engine.node as n
-  where (n.attributes->>'prg')::text = 'achilles.fooditem'
+  where n.prg = 'achilles.fooditem'
 ;
 
 --create table achilles.__fooditem (
