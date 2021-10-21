@@ -1,0 +1,40 @@
+
+n.n.n / 2016-09-10 
+==================
+
+ * added .gitignore, Makefile, config-prod.php, htaccess-prod, js/Makefile, links.txt, php/Makefile, php/achilles.php, php/fooditem.php, php/index.php, php/page.php, skin/Makefile, skin/css/Makefile, skin/tmpl/Makefile, skin/tmpl/about.tmpl, skin/tmpl/googleanalytics.tmpl, skin/tmpl/index.tmpl, skin/tmpl/timeline.tmpl, sql/Makefile, sql/achilles.sql
+ * copied smarty3 function font-awesome from https://github.com/Krzysiu/kafar/tree/master/Smarty
+ * removed common/js/Makefile
+ * moved memberdetailtip.js to engine
+ * moved js from zoidweb2 trunk to common
+ * moved php and Makefile from trunk to common
+ * moved 'smarty' folder from zoidweb2 trunk to 'common'
+ * smarty modifiers (ago, datestamp, filesize, fromnow, linkurl, summarize, wpprop) and Makefile copied from zoidweb2
+ * function.teos.php: commented out logentry() call
+ * removed extra 'skin' folder which was created as a result of a bad Makefile
+ * skin/Makefile: new; skin/art: added badges; skin/tmpl: added about, credits, sig
+ * initial revision
+ * removed unneeded include of stylesheet vfw10058.css
+ * initial revision of function.teos.php (smarty3 func)
+ * static/skin/scss/panel.scss: initial revision
+ * skin/scss/blurb.scss: initial revision
+ * display current member's credit total
+ * initial revision of some js to read a barcode from an image.
+ * initial revision of Makefile
+ * moved files from 'trunk' to one level up to that 'makerelease.py' will work without a lot of exceptions
+ * initial commit of 'repo' to git on cyclops.
+ * Makefile: initial revision. changed archivename so it does not append username
+ * musicsigs.py: initial version of script to make sure that links in top.entertainment.music are crossposted to top.arts.music and vice-versa
+ * engine/skin/Makefile: initial revision
+ * engine/skin/tmpl/index.tmpl, member.tmpl, Makefile: initial revision
+ * engine/php/Makefile: initial revision
+ * engine/php/notify.php, engine/php/register.php, engine/php/login.php, engine/php/member.php, and engine/php/logout.php: initial revision
+ * engine/php/index.php: initial revision
+ * Makefile: rules for installing the 'engine' subdomain to the staging area.
+ * config-prod.php: bare minimum config file for the 'engine' subdomain
+ * htaccess-prod: rewrite rules to handle 'pretty urls' for login, logout, register, get-notify-count, and get-notify-list
+ * engine/js: initial revision. the scripts here are used by all of the subdomains in zoidweb2
+ * multisig.py: first revision
+ * jquery.jsonp.js: from https://github.com/jaubourg/jquery-jsonp
+ * initial commit of skin/scss/ on www
+ * moved from static/skin/scss/
