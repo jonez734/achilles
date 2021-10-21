@@ -1,3 +1,4 @@
+\echo merchant
 create or replace view achilles.merchant as
     select n.*,
         (attributes->>'type') as type,

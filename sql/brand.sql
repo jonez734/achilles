@@ -1,3 +1,4 @@
+\echo brand
 create or replace view achilles.brand as
     select n.*,
         (n.attributes->>'manufid')::bigint as manufid,

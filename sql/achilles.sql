@@ -1,3 +1,12 @@
+\i schema.sql
 \i fooditem.sql
-\i attachment.sql
+--\i attachment.sql
 \i symptom.sql
+\i corp.sql
+\i brand.sql
+\i ingredient.sql
+\i vendor.sql
+\i merchant.sql
+\i lab.sql
+\i purchase.sql
+\i manuf.sql

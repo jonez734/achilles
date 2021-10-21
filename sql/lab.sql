@@ -1,3 +1,4 @@
+\echo lab
 create or replace view achilles.lab as
     select n.*,
         (n.attributes->>'type') as type,

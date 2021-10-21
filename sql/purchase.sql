@@ -1,4 +1,5 @@
-create view purchase as
+\echo purchase
+create or replace view purchase as
     select n.*,
         (n.attributes->>'merchantid')::bigint as merchantid,
         (n.attributes->>'vendorid')::bigint as vendorid,

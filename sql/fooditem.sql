@@ -1,3 +1,4 @@
+\echo fooditem
 create or replace view achilles.fooditem as
   select n.*,
     (n.attributes->>'brandid')::bigint as brandid,
@@ -6,7 +7,7 @@ create or replace view achilles.fooditem as
     (n.attributes->>'sku')::text as sku,
     (n.attributes->>'name')::text as name,
     (n.attributes->>'title')::text as title,
-    (n.attributes->>'ingredients') as ingredients,
+--    (n.attributes->>'ingredients') as ingredients,
     (n.attributes->>'description')::text as description,
 --    (n.attributes->>'testedbyid') as testedbyid,
 --    (n.attributes->>'datetested') as datetested,
