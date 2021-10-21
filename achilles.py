@@ -25,9 +25,9 @@ def add(args):
   record = {}
   record["title"] = ""
   record["name"] = ""
-  
+
   addrecord = _edit(args, record, "add")
-  
+
   if record != addrecord:
     ttyio.echo("** needs save **")
   if ttyio.inputboolean("add fooditem? [yN]: ", "N") is True:
