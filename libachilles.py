@@ -1,3 +1,3 @@
 #
-# Copyright (C) 2020 Zoid Technologies. All Rights Reserved.
+# Copyright (C) 2021 zoidtechnologies.com. All Rights Reserved.
 #
