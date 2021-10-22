@@ -16,9 +16,9 @@ setup(
   author="zoid technologies",
   author_email="%s@projects.zoidtechnologies.com" % (projectname),
   py_modules=["libachilles", "achilles"],
-  requires=["ttyio4", "bbsengine4"],
+  requires=["ttyio5", "bbsengine5"],
   scripts=["achilles"],
-  license="GPLv2",
+  license="GPLv3+",
   provides=[projectname],
   classifiers=[
     "Programming Language :: Python :: 3.9",
@@ -27,7 +27,7 @@ setup(
     "Intended Audience :: End Users",
     "Operating System :: POSIX",
     "Topic :: Terminals",
-    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3+)",
     "Topic :: Communications :: BBS"
   ],
   long_description = """socrates -- forum and blog system for bbsengine4.""",
