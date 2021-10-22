@@ -9,7 +9,7 @@ import tempfile
 import argparse
 
 import getdate
-import ttyio4 as ttyio
+import ttyio5 as ttyio
 import bbsengine5 as bbsengine
 
 import libachilles
@@ -39,9 +39,9 @@ def _edit(args, record, mode="edit"):
 
   done = False
   while not done:
-    ttyio.echo("[U]PC:        ")
-    ttyio.echo("[S]KU:        ")
-    ttyio.echo("[N]ame:       %s" % (editrecord["name"]), end="")
+    ttyio.echo("[U]PC:         ")
+    ttyio.echo("[S]KU:         ")
+    ttyio.echo("[N]ame:        %s" % (editrecord["name"]), end="")
     if record != editrecord:
       ttyio.echo(" (was: %s)" % (record["name"]))
     else:
@@ -51,11 +51,11 @@ def _edit(args, record, mode="edit"):
       ttyio.echo(" (was: %s)" % (record["title"]))
     else:
       ttyio.echo()
-    ttyio.echo("[A]dditives:  ")
-    ttyio.echo("[F]rozen:     ")
-    ttyio.echo("[D]escription ")
-    ttyio.echo("[M]anuf:      ")
-    ch = ttyio.inputchar("%s fooditem [USNTADFM]: " % (mode), "USNTADFMQ", "Q")
+    ttyio.echo("[I]ngredients: ")
+    ttyio.echo("[F]rozen:      ")
+    ttyio.echo("[D]escription  ")
+    ttyio.echo("[M]anuf:       ")
+    ch = ttyio.inputchar("%s fooditem [USNTIDFM]: " % (mode), "USNTIDFMQ", "Q")
     if ch == "Q":
       ttyio.echo("Quit")
       break
