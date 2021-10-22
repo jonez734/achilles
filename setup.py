@@ -16,7 +16,7 @@ setup(
   author="zoid technologies",
   author_email="%s@projects.zoidtechnologies.com" % (projectname),
   py_modules=["libachilles", "achilles"],
-  requires=["ttyio5", "bbsengine5"],
+  requires=["ttyio5", "bbsengine5", "python-barcode"],
   scripts=["achilles"],
   license="GPLv3+",
   provides=[projectname],
@@ -30,7 +30,7 @@ setup(
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3+)",
     "Topic :: Communications :: BBS"
   ],
-  long_description = """socrates -- forum and blog system for bbsengine4.""",
+  long_description = """achilles -- tracking use of MSG and related ingredients.""",
   command_options = {
     "build_sphinx": {
       "project": projectname,
