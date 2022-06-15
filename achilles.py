@@ -84,17 +84,13 @@ def main():
   )
   done = False
   while not done:
-    bbsengine.title("achilles", hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
+    bbsengine.title("achilles") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
     buf = ""
     for m in mainmenu:
       buf += "{bgdarkgray}{white}[{yellow}%s{white}]{/all} -- %s{F6}" % (m[0], m[1])
     buf += "{F6}{bgdarkgray}{white}[{yellow}Q{white}]{/all} -- Quit{F6}"
     ttyio.echo(buf)
-#    try:
     ch = ttyio.inputchar("achilles [LAKEQ]: {lightgreen}", "LAKEQ", "")
-#    except (EOFError, KeyboardInterrupt) as e:
-#      ttyio.echo("Quit{/all}")
-#      return
     if ch == "Q":
       ttyio.echo("Quit{/all}")
       done = True
