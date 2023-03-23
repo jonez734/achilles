@@ -2,10 +2,7 @@
 
 define("SITEADMINEMAIL", "achilles <achilles@projects.zoidtechnologies.com>");
 
-/**
- * define the base url for the site. THIS VALUE MUST BE TERMINATED WITH A "/"
- */
-define("SITETITLE", "Project Achilles - What is the answer to life, the universe, and everything medicine?");
+define("SITETITLE", "Project Achilles - A study of the affects of food additives in the diet");
 define("SITEURL", "http://achilles.zoidtechnologies.com/");
 define("SITEKEYWORDS", "project achilles, monosodium glutamate, mono-sodium glutamate, msg, glutamate, disodium glutamate, truth in labeling, health, nutrition, consumer protection, food additives");
 define("SITEDESCRIPTION", "Project Achilles studies the effects of monosodium glutamate on the human body");
