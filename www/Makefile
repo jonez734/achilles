@@ -1,9 +1,9 @@
-export HOST = falcon
+export HOST = merlin
 export PROJECT = achilles
 
 export PROD = $(HOST):/srv/www/vhosts/$(PROJECT).zoidtechnologies.com/
 export STAGEPROD = /srv/staging/$(PROJECT).zoidtechnologies.com/
-export STAGEPRODDOCROOT = $(STAGEPROD)80/html/
+export STAGEPRODDOCROOT = $(STAGEPROD)html/
 
 export datestamp = $(shell date +%Y%m%d-%H%M)
 export archivename = $(PROJECT)-$(datestamp)-$(USER)
@@ -12,8 +12,7 @@ export installfile = install --mode=0660
 export RSYNC = rsync --delete-after --chmod=Dg=rwxs,Fgu=rw,Fo=r --verbose \
 	--archive --update --backup --recursive \
 	--human-readable --rsh=ssh \
-	--no-owner --no-group --checksum \
-	--exclude '443'
+	--no-owner --no-group --checksum
 
 export PROJECTRELEASEDIR = /srv/repo/$(PROJECT)/
 export PROJECTRELEASES = /home/jam/projects/zoidweb2/trunk/$(PROJECT)/releases/
