@@ -4,6 +4,7 @@ create or replace view achilles.ingredient as
         (n.attributes->>'type')::text as type,
         (n.attributes->>'name')::text as name,
         (n.attributes->>'quantity')::text as quantity
+        (n.attributes->>'offlabel')::boolean as offlabel
     from engine.node as n
     where n.prg='achilles.ingredient'
 ;
