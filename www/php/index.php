@@ -1,14 +1,27 @@
 <?php
 
 require_once("config.php");
-require_once("zoidweb4.php");
-require_once("bbsengine4.php");
+require_once("engine.php");
+require_once("session.php");
+require_once("database.php");
 
 class index
 {
   function gethealthlinks()
   {
-    $dbh = dbconnect(SYSTEMDSN);
+    $sql = "select id, broken, lastmodified from vulcan.link, vulcan.map_link_sig where vulcan.map_link_sig.linkid = vulcan.link.id and vulcan.map_link_sig.siglabelpath ~ 'top.achilles' order by vulcan.link.broken asc, lastmodified desc";
+
+    $pdo = \bbsengine6\database\connect(SYSTEMDSN);
+    $dat = [];
+    $stmt = $pdo->prepare($sql);
+    try {
+      $stmt->execute($dat);
+    } catch (Exception $e) {
+      return [];
+    }
+    return $stmt->fetch();
+
+    $dbh = \bbsengine6\database\connect(SYSTEMDSN);
     if (PEAR::isError($dbh))
     {
       logentry("index.200: " . $dbh->toString());
@@ -51,17 +64,17 @@ class index
 
   function main()
   {
-    startsession();
+    \bbsengine6\session\start();
     
-    setcurrentsite("achilles");
-    setcurrentpage("index");
-    setcurrentaction("view");
-    setreturnto(getcurrenturi());
-    clearpageprotocol();
+    \bbsengine6\setcurrentsite("achilles");
+    \bbsengine6\setcurrentpage("index");
+    \bbsengine6\setcurrentaction("view");
+    \bbsengine6\setreturnto(\bbsengine6\getcurrenturi());
+//    \bbsengine6\clearpageprotocol();
 
     $title = "achilles - a project to study manufactured free glutamic acid (aka monosodium glutamate (MSG)";
 
-    $page = getpage($title);
+//    $page = \bbsengine6\getpage($title);
     $healthlinks = $this->gethealthlinks();
 
 //    $tmpl = getsmarty();
@@ -83,16 +96,18 @@ class index
     $data["pagetemplate"] = "index.tmpl"; // achilles-page.tmpl";
 
     $sidebar = [];
-    if (flag("ADMIN")) 
+    if (\bbsengine6\flag("ADMIN"))
     {
       $sidebar[] = ["name" => "add link", "title" => "add link to achilles sig", "url" => TEOSURL."achilles/add-link", "desc" => "add link to achilles sig"];
     }
     $data["sidebar"] = $sidebar;
 
-    displaypage($page, $data);
+    \bbsengine6\displaypage($data);
     return;
   }
 };
+
+//print("foo!");
 
 $a = new index();
 $b = $a->main();
