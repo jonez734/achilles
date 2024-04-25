@@ -37,11 +37,11 @@ def _edit(args, record, mode="edit"):
 
   done = False
   while not done:
-    io.echo("[U]PC:         ")
-    io.echo("[S]KU:         ")
-    io.echo("[N]ame:        %s" % (editrecord["name"]), end="")
+    io.echo(f"{{optioncolor}}[U]{{labelcolor}} UPC:         ")
+    io.echo(f"{{optioncolor}}[S]{{labelcolor}} SKU:         ")
+    io.echo(f"{{optioncolor}}[N]{{labelcolor}} Mame:        %s" % (editrecord["name"]), end="")
     if record != editrecord:
-      io.echo(" (was: %s)" % (record["name"]))
+      io.echo(f" {{labelcolor}}(was: {{valuecolor}}{record['name']}{{labelcolor}})")
     else:
       io.echo()
     io.echo("[T]itle:       %s" % (editrecord["title"]), end="")
@@ -49,13 +49,13 @@ def _edit(args, record, mode="edit"):
       io.echo(" (was: %s)" % (record["title"]))
     else:
       io.echo()
-    io.echo("[I]ngredients: ")
-    io.echo("[F]rozen:      ")
-    io.echo("[D]escription  ")
-    io.echo("[M]anuf:       ")
-    io.echo("[L]ot:         ")
-    ch = io.inputchar("%s fooditem [USNTIDFM]: " % (mode), "USNTIDFMQ", "Q")
-    if ch == "Q":
+    io.echo(f"{{optioncolor}}[I]{{labelcolor}} Ingredients: ")
+    io.echo(f"{{optioncolor}}[F]{{labelcolor}} Frozen:      ")
+    io.echo(f"{{optioncolor}}[D]{{labelcolor}} Description  ")
+    io.echo(f"{{optioncolor}}[M]{{labelcolor}} Manuf:       ")
+    io.echo(f"{{optioncolor}}[L]{{labelcolor}} Lot:         ")
+    ch = io.inputchar(f"{mode} fooditem {{optioncolor}}[USNTIDFM]{{promptcolor}}: {{inputcolor}}", "USNTIDFMXQ", "Q")
+    if ch == "Q" or ch == "X":
       io.echo("Quit")
       break
     elif ch == "N":
@@ -66,16 +66,6 @@ def _edit(args, record, mode="edit"):
       editrecord["title"] = io.inputstring("fooditem title: ", editrecord["title"])
   return editrecord
 
-def setarea(args, left, stack=False):
-  def right():
-    currentmember = member.getcurrent(args)
-    if currentmember is None:
-      return ""
-    rightbuf = "| %s | %s" % (currentmember["moniker"], util.pluralize(currentmember["credits"], "credit", "credits"))
-    if args.debug is True:
-      rightbuf += " | debug"
-    return rightbuf
-  screen.setarea(left, right, stack)
 
 def init(args, **kw):
   return True
@@ -98,13 +88,13 @@ def main(args, **kw):
   )
   done = False
   while not done:
-    setarea(args, "achilles")
+    lib.setarea(args, "achilles")
     screen.title("achilles: fooditems database") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
     util.heading("achilles: fooditem database")
     buf = ""
     for m in mainmenu:
       buf += f"{{optioncolor}}[{m[0]}]{{labelcolor}} {m[1]}{{F6}}"
-    buf += "{F6}{optioncolor}[Q]{labelcolor} -- Quit{F6}"
+    buf += "{F6}{optioncolor}[Q]{labelcolor} Quit{F6}"
     io.echo(buf)
     ch = io.inputchar("{promptcolor}achilles {optioncolor}[LAKEQ]{promptcolor}: {inputcolor}", "LAKEQX", "")
     if ch == "Q" or ch == "X":

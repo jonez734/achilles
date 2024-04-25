@@ -2,7 +2,7 @@
 # Copyright (C) 2024 zoidtechnologies.com. All Rights Reserved.
 #
 import argparse
-from bbsengine6 import database, module
+from bbsengine6 import database, module, member, screen, util
 
 def init(args=None):
     return True
@@ -23,3 +23,14 @@ def runmodule(args, modulename, **kw):
 
 def checkmodule(args, modulename, **kw):
   return module.checkmodule(args, f"achilles.{modulename}", **kw)
+
+def setarea(args, left, stack=False):
+  def right():
+    currentmember = member.getcurrent(args)
+    if currentmember is None:
+      return ""
+    rightbuf = "| %s | %s" % (currentmember["moniker"], util.pluralize(currentmember["credits"], "credit", "credits"))
+    if args.debug is True:
+      rightbuf += " | debug"
+    return rightbuf
+  screen.setarea(left, right, stack)
