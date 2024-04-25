@@ -99,24 +99,27 @@ def main(args, **kw):
   done = False
   while not done:
     setarea(args, "achilles")
-    screen.title("achilles") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
+    screen.title("achilles: fooditems database") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
+    util.heading("achilles: fooditem database")
     buf = ""
     for m in mainmenu:
-      buf += "{bgdarkgray}{white}[{yellow}%s{white}]{/all} -- %s{F6}" % (m[0], m[1])
-    buf += "{F6}{bgdarkgray}{white}[{yellow}Q{white}]{/all} -- Quit{F6}"
+      buf += f"{{optioncolor}}[{m[0]}]{{labelcolor}} {m[1]}{{F6}}"
+    buf += "{F6}{optioncolor}[Q]{labelcolor} -- Quit{F6}"
     io.echo(buf)
-    ch = io.inputchar("achilles [LAKEQ]: {lightgreen}", "LAKEQ", "")
-    if ch == "Q":
+    ch = io.inputchar("{promptcolor}achilles {optioncolor}[LAKEQ]{promptcolor}: {inputcolor}", "LAKEQX", "")
+    if ch == "Q" or ch == "X":
       io.echo("Quit{/all}")
       done = True
-      continue
     elif ch == "L":
       io.echo("List{/all}")
+      lib.runmodule(args, "list")
     elif ch == "A":
       io.echo("Add{/all}")
-      add(args)
+      lib.runmodule(args, "add")
     elif ch == "E":
       io.echo("Edit{/all}")
-      edit(args)
+      lib.runmodule(args, "edit")
+    else:
+      io.echo("{bell}")
   return
 
