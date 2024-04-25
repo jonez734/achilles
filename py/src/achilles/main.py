@@ -8,11 +8,9 @@ import copy
 import tempfile
 import argparse
 
-import getdate
-import ttyio5 as ttyio
-import bbsengine5 as bbsengine
+from bbsengine6 import io, screen, member, util
 
-import libachilles
+from . import lib
 
 #membermap = {"jam" : 1}
 #loginid = pwd.getpwuid(os.geteuid())[0]
@@ -29,9 +27,9 @@ def add(args):
   addrecord = _edit(args, record, "add")
 
   if record != addrecord:
-    ttyio.echo("** needs save **")
-  if ttyio.inputboolean("add fooditem? [yN]: ", "N") is True:
-    ttyio.echo("...code to add fooditem...")
+    io.echo("** needs save **")
+  if io.inputboolean("add fooditem? [yN]: ", "N") is True:
+    io.echo("...code to add fooditem...")
   return
 
 def _edit(args, record, mode="edit"):
@@ -39,53 +37,57 @@ def _edit(args, record, mode="edit"):
 
   done = False
   while not done:
-    ttyio.echo("[U]PC:         ")
-    ttyio.echo("[S]KU:         ")
-    ttyio.echo("[N]ame:        %s" % (editrecord["name"]), end="")
+    io.echo("[U]PC:         ")
+    io.echo("[S]KU:         ")
+    io.echo("[N]ame:        %s" % (editrecord["name"]), end="")
     if record != editrecord:
-      ttyio.echo(" (was: %s)" % (record["name"]))
+      io.echo(" (was: %s)" % (record["name"]))
     else:
-      ttyio.echo()
-    ttyio.echo("[T]itle:       %s" % (editrecord["title"]), end="")
+      io.echo()
+    io.echo("[T]itle:       %s" % (editrecord["title"]), end="")
     if record != editrecord:
-      ttyio.echo(" (was: %s)" % (record["title"]))
+      io.echo(" (was: %s)" % (record["title"]))
     else:
-      ttyio.echo()
-    ttyio.echo("[I]ngredients: ")
-    ttyio.echo("[F]rozen:      ")
-    ttyio.echo("[D]escription  ")
-    ttyio.echo("[M]anuf:       ")
-    ttyio.echo("[L]ot:         ")
-    ch = ttyio.inputchar("%s fooditem [USNTIDFM]: " % (mode), "USNTIDFMQ", "Q")
+      io.echo()
+    io.echo("[I]ngredients: ")
+    io.echo("[F]rozen:      ")
+    io.echo("[D]escription  ")
+    io.echo("[M]anuf:       ")
+    io.echo("[L]ot:         ")
+    ch = io.inputchar("%s fooditem [USNTIDFM]: " % (mode), "USNTIDFMQ", "Q")
     if ch == "Q":
-      ttyio.echo("Quit")
+      io.echo("Quit")
       break
     elif ch == "N":
-      ttyio.echo("Name")
-      editrecord["name"] = ttyio.inputstring("fooditem name: ", editrecord["name"])
+      io.echo("Name")
+      editrecord["name"] = io.inputstring("fooditem name: ", editrecord["name"])
     elif ch == "T":
-      ttyio.echo("Title")
-      editrecord["title"] = ttyio.inputstring("fooditem title: ", editrecord["title"])
+      io.echo("Title")
+      editrecord["title"] = io.inputstring("fooditem title: ", editrecord["title"])
   return editrecord
 
 def setarea(args, left, stack=False):
   def right():
-    currentmember = bbsengine.getcurrentmember(args)
+    currentmember = member.getcurrent(args)
     if currentmember is None:
       return ""
-    rightbuf = "| %s | %s" % (currentmember["name"], bbsengine.pluralize(currentmember["credits"], "credit", "credits"))
+    rightbuf = "| %s | %s" % (currentmember["moniker"], util.pluralize(currentmember["credits"], "credit", "credits"))
     if args.debug is True:
       rightbuf += " | debug"
     return rightbuf
-  bbsengine.setarea(left, right, stack)
+  screen.setarea(left, right, stack)
 
-def main(args):
-  parser = argparse.ArgumentParser(prog="achilles")
-  parser.add_argument("--verbose", default=True, action="store_true", help="use verbose mode")
-  parser.add_argument("--debug", default=False, action="store_true", help="run debug mode")
-  parser.add_argument("--dry-run", dest="dryrun", action="store_true", default=True, help="dry run (no database changes)")
-  # @todo: address 'zoidweb4' as hardcoded database name
-  bbsengine.buildargdatabasegroup(parser)
+def init(args, **kw):
+  return True
+
+def access(args, op, **kw):
+  return True
+
+def buildargs(args=None, **kw):
+  return None
+
+def main(args, **kw):
+  parser = lib.buildargs()
   args = parser.parse_args()
 
   mainmenu = (
@@ -97,39 +99,24 @@ def main(args):
   done = False
   while not done:
     setarea(args, "achilles")
-    bbsengine.title("achilles") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
+    screen.title("achilles") # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
     buf = ""
     for m in mainmenu:
       buf += "{bgdarkgray}{white}[{yellow}%s{white}]{/all} -- %s{F6}" % (m[0], m[1])
     buf += "{F6}{bgdarkgray}{white}[{yellow}Q{white}]{/all} -- Quit{F6}"
-    ttyio.echo(buf)
-    ch = ttyio.inputchar("achilles [LAKEQ]: {lightgreen}", "LAKEQ", "")
+    io.echo(buf)
+    ch = io.inputchar("achilles [LAKEQ]: {lightgreen}", "LAKEQ", "")
     if ch == "Q":
-      ttyio.echo("Quit{/all}")
+      io.echo("Quit{/all}")
       done = True
       continue
     elif ch == "L":
-      ttyio.echo("List{/all}")
+      io.echo("List{/all}")
     elif ch == "A":
-      ttyio.echo("Add{/all}")
+      io.echo("Add{/all}")
       add(args)
     elif ch == "E":
-      ttyio.echo("Edit{/all}")
+      io.echo("Edit{/all}")
       edit(args)
   return
 
-if __name__ == "__main__":
-  ttyio.echo("{f6:3}{cursorup:3}") # curpos:%d,0}" % (ttyio.getterminalheight()-3))
-  bbsengine.initscreen(bottommargin=1)
-
-  parser = buildargs()
-  args = parser.parse_args()
-
-  try:
-    main(args)
-  except EOFError:
-    ttyio.echo("{/all}{bold}EOF{/bold}")
-  except KeyboardInterrupt:
-    ttyio.echo("{/all}{bold}INTR{/bold}")
-  finally:
-    ttyio.echo("{decsc}{curpos:%d,0}{el}{decrc}{reset}{/all}" % (ttyio.getterminalheight()))
