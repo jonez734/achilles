@@ -4,6 +4,12 @@ from bbsengine6 import io, session, screen
 
 from . import lib
 
+def init(args, **kw):
+    return True
+
+def access(args, op, **kw):
+    return True
+
 if __name__ == "__main__":
     parser = lib.buildargs()
     args = parser.parse_args()
@@ -11,7 +17,7 @@ if __name__ == "__main__":
     session.start(args)
 
     screen.init()
-    lib.init(args)
+    init(args)
 
     locale.setlocale(locale.LC_ALL, "")
     time.tzset()

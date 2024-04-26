@@ -19,53 +19,6 @@ from . import lib
 #else:
 #  memberid = None
 
-def add(args):
-  record = {}
-  record["title"] = ""
-  record["name"] = ""
-
-  addrecord = _edit(args, record, "add")
-
-  if record != addrecord:
-    io.echo("** needs save **")
-  if io.inputboolean("add fooditem? [yN]: ", "N") is True:
-    io.echo("...code to add fooditem...")
-  return
-
-def _edit(args, record, mode="edit"):
-  editrecord = copy.deepcopy(record)
-
-  done = False
-  while not done:
-    io.echo(f"{{optioncolor}}[U]{{labelcolor}} UPC:         ")
-    io.echo(f"{{optioncolor}}[S]{{labelcolor}} SKU:         ")
-    io.echo(f"{{optioncolor}}[N]{{labelcolor}} Mame:        %s" % (editrecord["name"]), end="")
-    if record != editrecord:
-      io.echo(f" {{labelcolor}}(was: {{valuecolor}}{record['name']}{{labelcolor}})")
-    else:
-      io.echo()
-    io.echo("[T]itle:       %s" % (editrecord["title"]), end="")
-    if record != editrecord:
-      io.echo(" (was: %s)" % (record["title"]))
-    else:
-      io.echo()
-    io.echo(f"{{optioncolor}}[I]{{labelcolor}} Ingredients: ")
-    io.echo(f"{{optioncolor}}[F]{{labelcolor}} Frozen:      ")
-    io.echo(f"{{optioncolor}}[D]{{labelcolor}} Description  ")
-    io.echo(f"{{optioncolor}}[M]{{labelcolor}} Manuf:       ")
-    io.echo(f"{{optioncolor}}[L]{{labelcolor}} Lot:         ")
-    ch = io.inputchar(f"{mode} fooditem {{optioncolor}}[USNTIDFM]{{promptcolor}}: {{inputcolor}}", "USNTIDFMXQ", "Q")
-    if ch == "Q" or ch == "X":
-      io.echo("Quit")
-      break
-    elif ch == "N":
-      io.echo("Name")
-      editrecord["name"] = io.inputstring("fooditem name: ", editrecord["name"])
-    elif ch == "T":
-      io.echo("Title")
-      editrecord["title"] = io.inputstring("fooditem title: ", editrecord["title"])
-  return editrecord
-
 
 def init(args, **kw):
   return True
