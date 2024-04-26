@@ -39,27 +39,34 @@ def _edit(args, fooditem, mode="edit"):
     io.echo(f"{{optioncolor}}[S]{{labelcolor}} SKU:         ")
     io.echo(f"{{optioncolor}}[N]{{labelcolor}} Mame:        {{valuecolor}}{_fooditem['name']}", end="")
     if fooditem["name"] != _fooditem["name"]:
-      io.echo(f" {{labelcolor}}(was: {{valuecolor}}{fooditem['name']}{{labelcolor}})")
+      io.echo(f"{{labelcolor}} (was: {{valuecolor}}{fooditem['name']}{{labelcolor}})")
     else:
       io.echo()
     io.echo(f"{{optioncolor}}[T]{{labelcolor}} Title:       {{valuecolor}}{_fooditem['title']}", end="")
-    if fooditem != _fooditem:
-      io.echo("{{labelcolor}} (was: {{valuecolor}}{fooditem['title']}{{labelcolor}})")
+    if fooditem["title"] != _fooditem["title"]:
+      io.echo(f"{{labelcolor}} (was: {{valuecolor}}{fooditem['title']}{{labelcolor}})")
     else:
       io.echo()
     io.echo(f"{{optioncolor}}[I]{{labelcolor}} Ingredients: ")
-    io.echo(f"{{optioncolor}}[F]{{labelcolor}} Frozen:      ")
+    io.echo(f"{{optioncolor}}[F]{{labelcolor}} Frozen:      {{valuecolor}}{_fooditem['frozen']}", end="")
+    if fooditem["frozen"] != _fooditem["frozen"]:
+      io.echo(f"{{labelcolor}} (was: {{valuecolor}}{fooditem['frozen']}{{labelcolor}})")
+    else:
+      io.echo()
     io.echo(f"{{optioncolor}}[D]{{labelcolor}} Description  ")
     io.echo(f"{{optioncolor}}[M]{{labelcolor}} Manuf:       ")
     io.echo(f"{{optioncolor}}[L]{{labelcolor}} Lot:         ")
-    ch = io.inputchar(f"{mode} fooditem {{optioncolor}}[USNTIDFM]{{promptcolor}}: {{inputcolor}}", "USNTIDFMXQ", "Q")
+    ch = io.inputchar(f"{{promptcolor}}{mode} fooditem {{optioncolor}}[NTQ]{{promptcolor}}: {{inputcolor}}", "QXNTF", "Q")
     if ch == "Q" or ch == "X":
       io.echo("Quit")
       break
     elif ch == "N":
       io.echo("Name")
-      _fooditem["name"] = io.inputstring("fooditem name: ", _fooditem["name"])
+      _fooditem["name"] = io.inputstring(f"{{promptcolor}}fooditem name: {{inputcolor}}", _fooditem["name"])
     elif ch == "T":
       io.echo("Title")
-      _fooditem["title"] = io.inputstring("fooditem title: ", _fooditem["title"])
+      _fooditem["title"] = io.inputstring(f"{{promptcolor}}fooditem title: {{inputcolor}}", _fooditem["title"])
+    elif ch == "F":
+      io.echo("Frozen")
+      _fooditem["frozen"] = io.inputboolean(f"{{promptcolor}}frozen? {{optioncolor}}[Yn]{{promptcolor}}: {{inputcolor}}", "Y")
   return _fooditem
