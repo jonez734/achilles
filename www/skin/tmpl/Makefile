@@ -3,10 +3,8 @@ all:
 clean:
 	-rm *~
 
-install:
-	mkdir -p $(STAGEPROD)tmpl/
-	$(installfile) *.tmpl $(STAGEPROD)tmpl/
+prod:
+	$(RSYNC) *.tmpl $(STAGE)tmpl/
 
-release:
-	mkdir -p $(PROJECTBUILDDIR)skin/tmpl/
-	$(installfile) Makefile *.tmpl $(PROJECTBUILDDIR)skin/tmpl/
+#release:
+#	$(RSYNC) Makefile *.tmpl $(PROJECTBUILDDIR)skin/tmpl/
