@@ -1,31 +1,49 @@
 $(document).ready(function() {
-    $('.section-header').on('click', function() {
-        var $section = $(this).closest('.section');
-        var $content = $section.find('.section-content');
+    $('.section .header').on('click', function() {
+        var $header = $(this);
+        var $section = $header.closest('.section');
+        var $body = $section.find('.body'); // The placeholder .body in section.tmpl
         var sectionName = $section.data('name');
 
-        // CASE 1: Content is already there (either open or previously loaded)
-        if ($.trim($content.html()) !== '') {
-            console.log("Toggling existing content for: " + sectionName);
-            $content.slideToggle(); // This handles the "close" if it's currently open
+        if ($.trim($body.html()) !== '') {
+            $body.slideToggle();
         } 
-        // CASE 2: Content is empty (first time click)
         else {
-            console.log("First load for: " + sectionName);
-            
             $.ajax({
                 url: '/achilles/section.php',
                 type: 'GET',
                 data: { name: sectionName },
                 success: function(data) {
-                    $content.html(data);
-                    // Hide immediately so slideDown has a starting point of 0 height
-                    $content.hide().slideDown(); 
+                    var $html = $('<div>').html(data);
+                    
+                    // 1. Swap Header Text
+                    var newTitle = $html.find('.header h1').text();
+                    if (newTitle) {
+                        $header.find('h1').text(newTitle);
+                    }
+
+                    // 2. Extract only the inner content of the loaded .body
+                    // This prevents "body inside a body" nesting
+                    var newBodyContent = $html.find('.body').html();
+                    
+                    if (newBodyContent) {
+                        $body.html(newBodyContent);
+                    } else {
+                        // Fallback: if the template doesn't have a .body, use the whole response
+                        console.log("fallback");
+                        $body.html(data);
+                    }
+
+                    $body.hide().slideDown();
                 },
                 error: function() {
-                    $content.html('<div class="error">Error loading content.</div>').slideDown();
+                    $body.html('<div class="error">Error loading section content.</div>').slideDown();
                 }
             });
         }
+    });
+
+    $(document).on('click', '.section .body', function() {
+        $(this).slideUp();
     });
 });
