@@ -1,12 +1,21 @@
 all:
 
 .scss.css:
-	$(SCSS) $< $@
+	sass --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+	     --load-path /home/opencode/data/work/zoid6/scss/ \
+	     --load-path $(CURDIR) \
+	     --sourcemap=none --stop-on-error --trace --style expanded $< $@
 
-install: 
-	$(SCSS) --update --watch .:$(DOCROOT)skin/css/
+stage: 
+	sass --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+	     --load-path /home/opencode/data/work/zoid6/scss/ \
+	     --load-path $(CURDIR) \
+	     --sourcemap=none --stop-on-error --trace --style expanded \
+	     --update .:$(STAGE)skin/css/
 
 clean:
 	-rm *~ *.css *.css.map
 
 .SUFFIXES: .scss .css
+
+.PHONY: clean stage
