@@ -1,108 +1,110 @@
 <?php
 
+require_once('/srv/www/bbsengine6/php/bootstrap.php');
+
 require_once("config.php");
+
 require_once("engine.php");
 require_once("session.php");
 require_once("database.php");
+
+require_once("zoid6.php");
+require_once("libvulcan.php");
 
 class index
 {
   function gethealthlinks()
   {
-    $sql = "select id, broken, lastmodified from vulcan.link, vulcan.map_link_sig where vulcan.map_link_sig.linkid = vulcan.link.id and vulcan.map_link_sig.siglabelpath ~ 'top.achilles' order by vulcan.link.broken asc, lastmodified desc";
+    return [];
 
-    $pdo = \bbsengine6\database\connect(SYSTEMDSN);
+    $sql = "select elle.url from vulcan.link as elle, vulcan.map_link_sig as m where m.url = elle.url and m.path ~ 'top.achilles' order by elle.broken asc, lastmodified desc";
+
+    $pdo = \bbsengine6\database\connect(\SYSTEMDSN);
     $dat = [];
+
     $stmt = $pdo->prepare($sql);
-    try {
+//    try {
       $stmt->execute($dat);
-    } catch (Exception $e) {
+//    } catch (Exception $e) {
+//      return null;
+//    }
+    if ($stmt->rowCount() == 0)
+    {
       return [];
     }
-    return $stmt->fetch();
-
-    $dbh = \bbsengine6\database\connect(SYSTEMDSN);
-    if (PEAR::isError($dbh))
-    {
-      logentry("index.200: " . $dbh->toString());
-      return null;
-    }
-//    $sql = "select id from vulcan.link where sigpath ~ 'top.achilles' order by lastmodified desc";
-    $sql = "select id, broken, lastmodified from vulcan.link, vulcan.map_link_sig where vulcan.map_link_sig.linkid = vulcan.link.id and vulcan.map_link_sig.siglabelpath ~ 'top.achilles' order by vulcan.link.broken asc, lastmodified desc";
-    $res = $dbh->getAll($sql, array("integer"));
-    if (PEAR::isError($res))
-    {
-      logentry("index.202: " . $res->toString());
-      return null;
-    }
-
+    $res = $stmt->fetchAll();
     $healthlinks = [];
-    $count = 0;
     foreach ($res as $rec)
     {
-      $id = isset($rec["id"]) ? intval($rec["id"]) : null;
-      $link = getlinkbyid($id);
-      if (PEAR::isError($link))
+      $link = \vulcan\lib\getlinkbyurl($rec["url"]);
+      $healthlinks[] = $link;
+      if (\vulcan\lib\access("view", $link) === true)
       {
-        logentry("index.204: " . $link->toString());
-        continue;
-      }
-      if (accesslink("view", $link) === True)
-      {
-/*
-        if ($count == 5)
-        {
-          break;
-        }
-*/
         $healthlinks[] = $link;
-        $count++;
       }
     }
     return $healthlinks;
+  }
+
+  function getsectionnames(): array
+  {
+      $directory = SECTIONTEMPLATEDIR;
+      \bbsengine6\util\logentry("achilles.160: directory=".var_export($directory, true));
+      $sections  = [];
+
+      // Get all *.tmpl files
+      foreach (glob($directory . "/*.tmpl") as $file) {
+          $basename = basename($file);            // e.g. "metrics.tmpl"
+          $name     = preg_replace('/\.tmpl$/', '', $basename);  // "metrics"
+          $sections[] = $name;
+      }
+
+      sort($sections); // optional, but keeps things predictable
+
+      return $sections;
   }
 
   function main()
   {
     \bbsengine6\session\start();
     
-    \bbsengine6\setcurrentsite("achilles");
+    \bbsengine6\setcurrentsite(defined('\config\SITENAME') ? \config\SITENAME : "NEEDINFO");
     \bbsengine6\setcurrentpage("index");
     \bbsengine6\setcurrentaction("view");
     \bbsengine6\setreturnto(\bbsengine6\getcurrenturi());
-//    \bbsengine6\clearpageprotocol();
 
     $title = "achilles - a project to study manufactured free glutamic acid (aka monosodium glutamate (MSG)";
 
-//    $page = \bbsengine6\getpage($title);
     $healthlinks = $this->gethealthlinks();
-
-//    $tmpl = getsmarty();
-//    $tmpl->assign("healthlinks", $healthlinks);
 
     $data = [];
 
-    $metadata = [];
-/*
-    $metadata["og:description"] = "Project Achilles studies the effects of manufactured free glutamic acid (aka mono-sodium glutamate and MSG) on the human immune system";
-    $metadata["og:title"] = $title;
-    $metadata["og:type"] = "website";
-    $metadata["og:url"] = 'http:'.ACHILLESURL;
-    $metadata["keywords"] = "project achilles, manufactured free glutamic acid, monosodium glutamate, msg, nutrition, health, diet";
-    $metadata["Generator"] = "PEAR HTML_Page2 via bbsengine4";
-*/
     $data["healthlinks"] = $healthlinks;
     $data["metadata"] = $metadata;
     $data["pagetemplate"] = "index.tmpl"; // achilles-page.tmpl";
 
-    $sidebar = [];
-    if (\bbsengine6\flag("ADMIN"))
+    $choices = [];
+    if (\bbsengine6\member\lib\checkflag("SYSOP"))
     {
-      $sidebar[] = ["name" => "add link", "title" => "add link to achilles sig", "url" => TEOSURL."achilles/add-link", "desc" => "add link to achilles sig"];
+      $choices[] = ["name" => "add link", "title" => "add link to achilles sig", "url" => TEOSURL."achilles/add-link", "desc" => "add link to achilles sig"];
     }
-    $data["sidebar"] = $sidebar;
+    $data["choices"] = \zoid6\buildchoices($choices);
 
-    \bbsengine6\displaypage($data);
+    $sectionnames = $this->getsectionnames();
+    \bbsengine6\util\logentry("achilles.120: sectionnames=".var_export($sectionnames, true));
+
+    $sections = [];
+    foreach ($sectionnames as $name) {
+      $sections[$name] = [
+        'open' => false
+      ];
+    }
+//    \bbsengine6\util\logentry("----> achilles.100: sections=".var_export($sections, true));
+
+    $data["sections"] = $sections;
+
+    \bbsengine6\displaypage($data, "index.tmpl");
+    \bbsengine6\util\logentry("achilles.100: ".var_export($data, true));
     return;
   }
 };
