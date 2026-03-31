@@ -1,9 +1,27 @@
 @import "vars";
 @import "mixins";
 
+/* Import shared accordion styles */
+@import "../../../../../../shared/skin/scss/accordian";
+
 /* achilles.scss */
 
 .highlight {
 	background-color: yellow;
 	color: gray;
+	text-shadow: none;
+}
+
+body {
+	font-size: $body-fontsize; // 1.75em;
+}
+
+.blurb .body .chat {
+  .user {
+	color: yellow;
+	font-size: 1.25em;
+  }
+  .assistant {
+  	color: orange;
+  }
 }
