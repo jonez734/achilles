@@ -6,6 +6,7 @@ require_once('util.php');
 
 // Define configuration constants in config namespace (required by bbsengine6)
 // Using backslash prefix makes them accessible via defined('\config\CONSTANT')
+define("config\SITENAME", "achilles");
 define("config\SITEADMINEMAIL", "achilles <achilles@projects.zoidtechnologies.com>");
 define("config\SITETITLE", "Project Achilles - A study of the affects of flavor enhancers on health");
 define("config\SITEURL", "/achilles/");
@@ -16,14 +17,13 @@ define("config\DOCUMENTROOT", \config\VHOSTDIR . "html/achilles/");
 define("config\SKINDIR", \config\DOCUMENTROOT . "skin/");
 define("config\SKINURL", \config\SITEURL . "skin/");
 define("config\JSURL", "/achilles/skin/js/");
-
 // Define SMARTY* constants before including zoid6config.php so it can create global aliases
 // SMARTYTEMPLATESDIR - 3-element array with proper precedence
 // Search order: 1) Site-specific templates 2) bbsengine6 shared 3) zoid6 shared
 define("config\SMARTYTEMPLATESDIR", [
     0 => \config\SKINDIR . "tmpl/",
-    1 => "/srv/www/bbsengine6/skin/tmpl/",
-    2 => "/srv/www/zoid6/skin/tmpl/"
+    1 => "/srv/www/zoid6/skin/tmpl/",
+    2 => "/srv/www/bbsengine6/skin/tmpl/"
 ]);
 
 // SMARTYCOMPILEDTEMPLATESDIR - compiled template cache directory
@@ -40,6 +40,8 @@ require_once('zoid6config.php');
 
 define("config\LOGENTRYPREFIX", "zoid6achilles");
 define("config\ENGINEURL", "/engine/");
+define("config\ENGINESKINURL", "/engine/skin/");
+define("config\SHAREDSKINURL", "/shared/skin/");
 define("config\GOOGLEANALYTICSACCOUNT", "UA-23705021-1");
 define("config\SECTIONTEMPLATEDIR", \config\SKINDIR . "tmpl/sections/");
 
@@ -52,6 +54,9 @@ define("SKINDIR", \config\SKINDIR);
 define("SKINURL", \config\SKINURL);
 define("JSURL", \config\JSURL);
 define("ENGINEURL", \config\ENGINEURL);
+define("ENGINESKINURL", \config\ENGINESKINURL);
+define("SHAREDSKINURL", \config\SHAREDSKINURL);
+define("STATICSKINURL", \config\SHAREDSKINURL); // Alias for backward compat
 define("LOGENTRYPREFIX", \config\LOGENTRYPREFIX);
 define("SECTIONTEMPLATEDIR", \config\SECTIONTEMPLATEDIR);
 

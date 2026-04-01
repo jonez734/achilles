@@ -1,0 +1,22 @@
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 0.8em;
+}
+
+/* Rotate the arrow 90 degrees when the section is open */
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.blurb.section {
+  border: none;
+  margin: 0.25em;
+}
+.blurb.section .header {
+  cursor: pointer;
+  user-select: none;
+}
+.blurb.section .body {
+  cursor: pointer;
+  /* This border-top comes from blurb.scss but is visible only when open */
+}
