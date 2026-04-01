@@ -1,13 +1,18 @@
-all:
+MAIN_FILES = achilles.scss section.scss timeline.scss topbar.scss
+CSS_FILES = $(MAIN_FILES:.scss=.css)
 
-.scss.css:
-	sass --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+all: $(CSS_FILES)
+
+%.css: %.scss
+	sass --no-cache --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+	     --load-path /home/opencode/data/work/bbsengine6/skin/scss/ \
 	     --load-path /home/opencode/data/work/zoid6/scss/ \
 	     --load-path $(CURDIR) \
 	     --sourcemap=none --stop-on-error --trace --style expanded $< $@
 
-stage: 
-	sass --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+stage: $(CSS_FILES)
+	sass --no-cache --load-path /home/opencode/data/work/zoid6/shared/skin/scss/ \
+	     --load-path /home/opencode/data/work/bbsengine6/skin/scss/ \
 	     --load-path /home/opencode/data/work/zoid6/scss/ \
 	     --load-path $(CURDIR) \
 	     --sourcemap=none --stop-on-error --trace --style expanded \
@@ -16,6 +21,4 @@ stage:
 clean:
 	-rm *~ *.css *.css.map
 
-.SUFFIXES: .scss .css
-
-.PHONY: clean stage
+.PHONY: all clean stage

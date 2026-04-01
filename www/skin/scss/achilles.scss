@@ -1,9 +1,19 @@
 @import "vars";
+@import "mixins";
+
+/* Import component styles */
+@import "blurb";
+@import "page";
+@import "pageheader";
+@import "pagefooter";
+@import "section";
+@import "timeline";
+@import "topbar";
 
 /* Import shared accordion styles */
 @import "accordian";
 
-/* achilles.scss */
+/* achilles.scss - site-specific overrides */
 
 .highlight {
 	background-color: yellow;
@@ -12,7 +22,7 @@
 }
 
 body {
-	font-size: $body-fontsize; // 1.75em;
+	font-size: $body-fontsize;
 }
 
 .blurb .body .chat {
