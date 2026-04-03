@@ -8,3 +8,6 @@ create or replace view achilles.lab as
     from engine.node as n
     where n.prg='achilles.lab'
 ;
+
+grant select on achilles.lab to :web;
+grant select on achilles.lab to :bbs;

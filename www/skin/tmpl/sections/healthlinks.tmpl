@@ -9,11 +9,15 @@
   {count($data.healthlinks)} links from "{teos path="top.achilles"}" sig on <a href="{$smarty.const.TEOSURL}">teos</a>
 </div>
 </div> {* blurb *}
+{if count($data.healthlinks) > 0}
 <ul class="nobullets">
 {foreach $data.healthlinks as $link}
 <li>{include link=$link file="vulcan-terse.tmpl" showsig=False}</li>
 {/foreach}
 </ul>
+{else}
+<bold>no links</bold>
+{/if}
 </div> {* content *}
 </details>
 {/if}

@@ -1,3 +1,6 @@
+\set web "www-data"
+\set bbs "bbs"
+
 \i schema.sql
 \i fooditem.sql
 --\i attachment.sql

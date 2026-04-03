@@ -5,7 +5,7 @@
   background-color: $blurb-backgroundcolor;
   color: $blurb-color;
   margin: 0.5em;
-  border: 0.125em solid $blurb-border-color;
+  border: $blurb-border;
   overflow: hidden;
   
   flex: 0;
@@ -43,7 +43,7 @@
       
     &:hover {
 	color: $blurb-body-backgroundcolor;
-        background-color: darken($blurb-body-backgroundcolor, 10%);
+        background-color: invert($blurb-body-backgroundcolor);
     }
 
   }
@@ -54,7 +54,7 @@
     background-color: $blurb-body-backgroundcolor;
 
     border: 0;
-    border-top: 0.125em solid $blurb-border-color;
+    border-top: $blurb-border;
     margin: 0;
     padding: 0.5em;
 
@@ -81,7 +81,7 @@
 
     background-color: $blurb-footer-backgroundcolor;
     border: 0;
-    border-top: 0.125em solid $blurb-border-color;
+    border-top: $blurb-border;
   }
   &.vstretch {
   	flex: 1 0 auto;

@@ -1,4 +1,14 @@
 \echo vendor
+create table achilles.__vendor (
+    type text,
+    name text,
+    qsr boolean,
+    chain boolean,
+    independentlyowned boolean,
+    independentlyoperatated boolean,
+    url text
+);
+
 create or replace view achilles.vendor as
     select 
         n.*,
@@ -12,3 +22,6 @@ create or replace view achilles.vendor as
     from engine.node as n
     where n.prg = 'achilles.vendor'
 ;
+
+grant select on achilles.vendor to :web;
+grant select on achilles.vendor to :bbs;

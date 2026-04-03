@@ -2,9 +2,7 @@ all:
 
 clean:
 	-rm *~
+	$(MAKE) -C sections clean
 
-prod:
-	$(RSYNC) *.tmpl $(STAGE)tmpl/
-
-#release:
-#	$(RSYNC) Makefile *.tmpl $(PROJECTBUILDDIR)skin/tmpl/
+stage:
+	$(RSYNC) *.tmpl sections $(STAGE)skin/tmpl/

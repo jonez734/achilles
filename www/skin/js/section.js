@@ -43,7 +43,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click', '.section .body', function() {
-        $(this).slideUp();
-    });
+//    $(document).on('click', '.section .body', function() {
+//        $(this).slideUp();
+//    });
 });

@@ -1,160 +1,68 @@
 {extends file="page.tmpl"}
 <!-- index.tmpl in achilles -->
 {block name="head" append}
-<link rel="stylesheet" type="text/css" href="/skin/css/accordian.css" media="screen" />
-<script defer src="/js/accordian.js"></script>
-{* <script src="/skin/js/achilles.js"></script> *}
-<link rel="stylesheet" type="text/css" href="/skin/css/achilles.css" media="screen" />
+{* <link rel="stylesheet" type="text/css" href="{$smarty.const.SKINDIR}css/accordian.css" media="screen" /> *}
+{* <script defer src="{$smarty.const.JSURL}accordian.js"></script> *}
+{* <script src="{$smarty.const.JSURL}achilles.js"></script> *}
+
+<script defer src="{$smarty.const.JSURL}section.js"></script>
+<link rel="stylesheet" type="text/css" href="{$smarty.const.SKINURL}css/section.css" media="screen" />
+
+<link rel="stylesheet" type="text/css" href="{$smarty.const.SKINURL}css/achilles.css" media="screen" />
 {/block}
-{block name="title"}achilles - a study of flavor enhancers{/block}
+{block name="title"}achilles - a study of sodium glutamates{/block}
 {block name="content"}
 <div class="blurb">
-<div class="header"><h1>achilles</h1></div>
+<div class="header"><h1>project achilles</h1></div>
 <div class="body">
-<h2>a study of flavor enhancers</h2>
-
-<p>project achilles studies flavors enhancers, especially <abbr title="monosodium glutamate">MSG</abbr>
-and related compounds (<a href="https://en.wikipedia.org/wiki/Disodium_glutamate">disodium glutamate</a>, disodium glutayate, <a href="https://en.wikipedia.org/wiki/Disodium_guanylate">disodium guanylate</a>, <a href="https://en.wikipedia.org/wiki/Disodium_inosinate">disodium inosinate</a>, etc) on the human body.</p>
+<h2>a study of sodium glutamates</h2>
 </div> {* body *}
 </div> {* blurb *}
-<div class="blurb">
-<div class="header warning"><h1>warning</h1></div>
-<div class="body"><i class="fa-solid fa-triangle-exclamation"></i>
-<span>For <b>medical</b> or <b>nutritional advice</b>, <i>do not rely only on this
-site</i>. Please <b>consult a dietician or health care professional</b> instead.</span>
-</div>
-</div>
+{include file="00-not-medical-advice.tmpl"}
+{include file="00-warning-ai-content.tmpl"}
+
+{foreach $data.sections as $name => $config}
+  {include file="section.tmpl" name=$name config=$config}
+{/foreach}
+
+{*
+{include file="sections/summary.tmpl" open=true}
+{include file="sections/goals.tmpl"}
+
+{include file="sections/us-military-using-msg-during-korea.tmpl"}
+*}
+{*
 <details>
-<summary>summary</summary>
+<summary>Red Dye #3</summary>
 <div class="content">
-{include file="summary.tmpl"}
+{include file="sections/erythrosine-red-dye-3.tmpl"}
 </div>
 </details>
-<details>
-<summary>goals</summary>
-<div class="content">
-{include file="goals.tmpl"}
-</div>
-</details>
+*}
+{*
+{include file="sections/chatgpt-distinct-glutamate-sodium.tmpl"}
 
-<details>
-<summary>chatGPT (openai) warning</summary>
-<div class="content">
-{include file="chatgpt-warning.tmpl"}
-</div>
-</details>
+{include file="sections/openai-msg-contact-with-cell.tmpl"}
 
-<details>
-<summary>chatGPT prompted about MSG occuring in nature on 2024-09-20</summary>
-<div class="content">
-{include file="chatgpt-distinct-glutamate-sodium.tmpl"}
-</div>
-</details>
+{include file="sections/openai-about-msg.tmpl"}
+{include file="sections/chemistry.tmpl"}
 
-<details>
-<summary>openai: msg contact with cell</summary>
-<div class="content">
-{include file="openai-msg-contact-with-cell.tmpl"}
-</div>
-</details>
-
-<details>
-<summary>openai: about msg</summary>
-<div class="content">
-{include file="openai-about-msg.tmpl"}
-</div>
-</details>
-
-<details>
-<summary>chemistry</summary>
-<div class="content">{include file="chemistry.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: describe how glutamate is used by the body</summary>
-<div class="content">{include file="openai-how-glutamate-is-used.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: what is the chemical name for protein bound to glutamate</summary>
-<div class="content">{include file="openai-chemical-name-for-protein-bound-to-glutamate.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: is msg used by quick service restaurants</summary>
-<div class="content">{include file="openai-is-msg-used-by-qsr.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: does staff of qsr know about msg</summary>
-<div class="content">{include file="openai-does-staff-of-qsr-know-about-msg.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: does Burger King&reg; use msg in their chicken</summary>
-<div class="content">{include file="openai-bk-use-msg-in-chicken.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: is msg the same as disodium glutamate</summary>
-<div class="content">{include file="openai-msg-same-as-disodium.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: should a low sodium diet avoid flavor enhancers</summary>
-<div class="content">{include file="openai-should-low-sodium-diet-avoid-msg.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: does msg exacerbate existing symptoms</summary>
-<div class="content">{include file="openai-does-msg-exacerbate-existing-symptoms.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: what is an appropriate amount of msg</summary>
-<div class="content">{include
-file="openai-appropriate-amount-of-msg.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: how long do symptoms of msg last</summary>
-<div class="content">{include file="openai-how-long-do-symptoms-of-msg-last.tmpl"}</div>
-</details>
-
-<details>
-<summary>openai: does msg occur in cheese</summary>
-<div class="content">{include file="openai-is-msg-in-cheese.tmpl"}</div>
-</details>
-
-<details>
-<summary>details</summary>
-<div class="content">
-{include file="details.tmpl"}
-</div>
-</details>
-<details>
-<summary>nutrition guides</summary>
-<div class="content">
-{include file="nutrition-guides.tmpl"}
-</div>
-</details>
-<details>
-<summary>examples</summary>
-<div class="content">
-{include file="examples.tmpl"}
-</div>
-</details>
-<details>
-<summary>change log</summary>
-<div class="content">
-{include file="changelog.tmpl"}
-</div>
-</details>
-{include file="healthlinks.tmpl" links=$data.healthlinks}
-<details>
-<summary>timeline</summary>
-<div class="content">
-{include file="timeline.tmpl"}
-</div>
-</details>
+{include file="sections/openai-how-glutamate-is-used.tmpl"}
+{include file="sections/openai-chemical-name-for-protein-bound-to-glutamate.tmpl"}
+{include file="sections/openai-is-msg-used-by-qsr.tmpl"}
+{include file="sections/openai-does-staff-of-qsr-know-about-msg.tmpl"}
+{include file="sections/openai-bk-use-msg-in-chicken.tmpl"}
+{include file="sections/openai-msg-same-as-disodium.tmpl"}
+{include file="sections/openai-should-low-sodium-diet-avoid-msg.tmpl"}
+{include file="sections/openai-does-msg-exacerbate-existing-symptoms.tmpl"}
+{include file="sections/openai-appropriate-amount-of-msg.tmpl"}
+{include file="sections/openai-how-long-do-symptoms-of-msg-last.tmpl"}
+{include file="sections/openai-is-msg-in-cheese.tmpl"}
+{include file="sections/details.tmpl"}
+{include file="sections/nutrition-guides.tmpl"}
+{include file="sections/examples.tmpl"}
+{include file="sections/changelog.tmpl"}
+{include file="sections/healthlinks.tmpl" links=$data.healthlinks}
+{include file="sections/timeline.tmpl"}
+*}
 {/block} {* content *}

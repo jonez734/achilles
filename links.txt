@@ -1,1 +1,3 @@
 http://developer.android.com/training/camera/photobasics.html
+https://youtu.be/SrZuwM705yE?si=v5SefZAjihVSoES1 How to Detect QRCode and BarCode using OpenCV in Python + Project Murtaza's Workshop - Robotics and AI
+

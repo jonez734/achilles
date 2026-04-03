@@ -3,5 +3,5 @@ all:
 clean:
 	-rm *~
 
-install:
-	echo "install"
+stage:
+	$(RSYNC) *.svg *.png $(STAGE)skin/art/

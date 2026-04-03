@@ -11,6 +11,9 @@ create or replace view achilles.merchant as
     where n.prg = 'achilles.merchant'
 ;
 
+grant select on achilles.merchant to :web;
+grant select on achilles.merchant to :bbs;
+
 --create table achilles.__merchant (
 --    "id" serial unique not null primary key,
 --    "name" text unique,

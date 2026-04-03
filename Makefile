@@ -1,9 +1,8 @@
-export HOST = falcon
+export HOST = merlin
 export PROJECT = achilles
 
-export PROD = $(HOST):/srv/www/vhosts/$(PROJECT).zoidtechnologies.com/
-export STAGEPROD = /srv/staging/$(PROJECT).zoidtechnologies.com/
-export STAGEPRODDOCROOT = $(STAGEPROD)80/html/
+export PROD = $(HOST):/srv/www/vhosts/zoidtechnologies.com/html/$(PROJECT)/
+export STAGE = /srv/staging/zoidtechnologies.com/html/$(PROJECT)/
 
 export datestamp = $(shell date +%Y%m%d-%H%M)
 export archivename = $(PROJECT)-$(datestamp)-$(USER)
@@ -11,13 +10,8 @@ export installfile = install --mode=0660
 
 export RSYNC = rsync --delete-after --chmod=Dg=rwxs,Fgu=rw,Fo=r --verbose \
 	--archive --update --backup --recursive \
-	--human-readable --rsh=ssh \
-	--no-owner --no-group --checksum \
-	--exclude '443'
-
-export PROJECTRELEASEDIR = /srv/repo/$(PROJECT)/
-export PROJECTRELEASES = /home/jam/projects/zoidweb2/trunk/$(PROJECT)/releases/
-export PROJECTBUILDDIR = $(PROJECTRELEASES)$(archivename)/
+	--human-readable --rsh=ssh --mkpath \
+	--no-owner --no-group --checksum
 
 export SCSS = sass --sourcemap=none --stop-on-error --trace --style expanded
 
@@ -25,24 +19,14 @@ all:
 
 clean:
 	-rm *~
-	$(MAKE) -C skin clean
-	$(MAKE) -C php clean
+#	$(MAKE) -C skin clean
+#	$(MAKE) -C php clean
 	$(MAKE) -C sql clean
+	$(MAKE) -C www clean
 
-prod:	export DOCROOT = $(STAGEPRODDOCROOT)
-prod:	export STAGE = $(STAGEPROD)
-prod:
-	mkdir -p $(DOCROOT)
-	mkdir -p $(STAGE)templates_c/
-
-#	$(MAKE) -C .. prod
-	$(MAKE) -C php install
-	$(MAKE) -C skin install
-	-$(MAKE) -C js install
-	$(installfile) config-prod.php $(DOCROOT)config.php
-	# $(installfile) ../php/zoidweb2.php ../php/bbsengine3.php $(DOCROOT)
-	-$(installfile) htaccess-prod $(DOCROOT).htaccess
-	$(RSYNC) --delete-after $(STAGE) $(PROD)
+www:
+	-$(MAKE) -C www stage
+	$(RSYNC) $(STAGE) $(PROD)
 
 release:
 	echo "-=- making a new release of $(PROJECT) -=-";
@@ -64,3 +48,8 @@ release:
 
 push:
 	git push -u github master
+
+backup:
+	rsync --recursive --verbose --exclude=.venv . /run/media/jam/AEAB-CF37/projects/$(PROJECT)/
+	
+.PHONY: www

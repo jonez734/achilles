@@ -5,4 +5,3 @@ RewriteBase /
 #RewriteRule ^logout[/]?$ logout.php [last]
 RewriteRule ^about[/]?$ /page.php?name=about [last]
 RewriteRule ^timeline[/]?$ /page.php?name=timeline [last]
-

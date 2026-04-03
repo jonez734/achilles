@@ -1,19 +1,19 @@
 \echo fooditem
 create or replace view achilles.fooditem as
-  select n.*,
-    (n.attributes->>'brandid')::bigint as brandid,
-    (n.attributes->>'manufid')::bigint as manufid,
-    (n.attributes->>'upc')::text as upc,
-    (n.attributes->>'sku')::text as sku,
-    (n.attributes->>'name')::text as name,
-    (n.attributes->>'title')::text as title,
---    (n.attributes->>'ingredients') as ingredients,
-    (n.attributes->>'description')::text as description,
---    (n.attributes->>'testedbyid') as testedbyid,
---    (n.attributes->>'datetested') as datetested,
-    (n.attributes->>'frozen')::boolean as frozen
-  from engine.node as n
-  where n.prg = 'achilles.fooditem'
+  select b.*,
+    (b.attributes->>'brandid')::bigint as brandid,
+    (b.attributes->>'manufid')::bigint as manufid,
+    (b.attributes->>'upc')::text as upc,
+    (b.attributes->>'sku')::text as sku,
+    (b.attributes->>'lot')::text as lot,
+    (b.attributes->>'serial')::text as serial,
+    (b.attributes->>'name')::text as name,
+    (b.attributes->>'title')::text as title,
+    (b.attributes->>'description')::text as description,
+    (b.attributes->>'frozen')::boolean as frozen,
+    (b.attributes->>'wic')::boolean as wic
+  from engine.__blurb as b
+  where b.prg = 'achilles.fooditem'
 ;
 
 --create table achilles.__fooditem (

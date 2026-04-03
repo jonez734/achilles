@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: achilles
+Version: 202406251307
+Home-page: https://repo.zoidtechnologies.com/achilles/
+Author: zoid technologies
+Author-email: achilles@projects.zoidtechnologies.com
+License: GPLv3+
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Environment :: Console
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users
+Classifier: Operating System :: POSIX
+Classifier: Topic :: Terminals
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3+)
+Classifier: Topic :: Communications :: BBS
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Requires: ttyio5
+Requires: bbsengine5
+Provides: achilles
+
+achilles -- tracking use of MSG (mono-sodium glutamate) and related additives.

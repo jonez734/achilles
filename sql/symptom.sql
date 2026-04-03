@@ -1,17 +1,17 @@
 \echo symptom
 create or replace view achilles.symptom as
-  select n.*,
-    (n.attributes->>'memberid')::bigint as memberid,
-    (n.attributes->>'fooditemid')::bigint as fooditemid,
-    (n.attributes->>'description')::text as description,
-    (n.attributes->>'severity')::bigint as severity,
-    (n.attributes->>'duration')::interval as duration,
-    (n.attributes->>'remedy')::text as remedy
-  from engine.node as n
-  where n.prg='achilles.symptom'
+  select b.*,
+    (b.attributes->>'memberid')::bigint as memberid,
+    (b.attributes->>'fooditemid')::bigint as fooditemid,
+    (b.attributes->>'description')::text as description,
+    (b.attributes->>'severity')::bigint as severity,
+    (b.attributes->>'duration')::interval as duration,
+    (b.attributes->>'remedy')::text as remedy
+  from engine.__blurb as b
+  where b.prg='achilles.symptom'
 ;
 
-grant select on achilles.symptom to "apache";
+grant select on achilles.symptom to :web;
 
 --create table achilles.__symptom (
 --  "id" serial unique not null primary key,

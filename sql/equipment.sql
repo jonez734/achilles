@@ -8,9 +8,15 @@ create or replace view achilles.equipment as
     where n.prg='achilles.equipment'
 ;
 
+grant select on achilles.equipment to :web;
+grant select on achilles.equipment to :bbs;
+
 create or replace table achilles.map_lab_equipment(
-    labid bigint,
-    equipmentid bigint
+    labid bigint constraint fk_map_lab_equipment_labid references lab(id) on update cascade on delete cascade,
+    equipmentid bigint constraint fk_map_lab_equipment_equipmentid references equipment(id) on update cascade on delete cascade,
+    equipmentserialnumber text,
+    dateinstalled timestamptz
 );
 
-grant all on achilles.map_lab_equipment to 'apache';
+grant all on achilles.map_lab_equipment to :web;
+grant all on achilles.map_lab_equipment to :bbs;

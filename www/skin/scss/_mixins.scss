@@ -1,0 +1,12 @@
+//
+// achilles/www/skin/scss/_mixins.scss
+// Wrapper that imports framework mixins in proper order
+//
+// Import base framework mixins first (bbsengine6 is the foundation)
+@import "bbsengine6mixins";
+
+// Then extend with zoid6 mixins (may override or add to bbsengine6)
+@import "zoid6mixins";
+
+// TODO: Add achilles-specific mixins here if needed in the future
+// Custom achilles mixins can be defined below after the framework imports
