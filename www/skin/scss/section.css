@@ -7,14 +7,13 @@
   flex-shrink: 0;
   line-height: 1;
 }
-
 .arrow:hover {
   cursor: pointer;
 }
 
-/* Rotate the arrow 45 degrees when the section is open */
+/* Rotate the arrow 90 degrees when the section is open */
 .arrow.open {
-  transform: rotate(45deg);
+  transform: rotate(90deg);
 }
 
 .blurb.section {
