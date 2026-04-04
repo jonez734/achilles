@@ -24,11 +24,10 @@
 .blurb.section .header {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
 }
 .blurb.section .header h1 {
   cursor: pointer;
   user-select: none;
-  white-space: nowrap;
   margin: 0;
+  flex: 1;
 }
