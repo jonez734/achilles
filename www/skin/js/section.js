@@ -2,8 +2,14 @@ $(document).ready(function() {
     $('.section .header h1').on('click', function() {
         var $header = $(this);
         var $section = $header.closest('.section');
-        var $body = $section.find('.body'); // The placeholder .body in section.tmpl
+        var $body = $section.find('.body');
         var sectionName = $section.data('name');
+
+        // Validate section name - only allow alphanumeric, hyphens, underscores
+        if (!sectionName || !/^[a-zA-Z0-9_-]+$/.test(sectionName)) {
+            $body.html('<div class="error">Invalid section.</div>').slideDown();
+            return;
+        }
 
         if ($.trim($body.html()) !== '') {
             $body.slideToggle();
@@ -16,34 +22,25 @@ $(document).ready(function() {
                 success: function(data) {
                     var $html = $('<div>').html(data);
                     
-                    // 1. Swap Header Text
                     var newTitle = $html.find('.header h1').text();
-                    if (newTitle) {
-                        $header.text(newTitle);
+                    if (newTitle && newTitle.trim()) {
+                        $header.text(newTitle.trim());
                     }
 
-                    // 2. Extract only the inner content of the loaded .body
-                    // This prevents "body inside a body" nesting
                     var newBodyContent = $html.find('.body').html();
                     
                     if (newBodyContent) {
                         $body.html(newBodyContent);
                     } else {
-                        // Fallback: if the template doesn't have a .body, use the whole response
-                        console.log("fallback");
                         $body.html(data);
                     }
 
                     $body.hide().slideDown();
                 },
-                error: function() {
-                    $body.html('<div class="error">Error loading section content.</div>').slideDown();
+                error: function(xhr, status, error) {
+                    $body.html('<div class="error">Error loading section. Please try again.</div>').slideDown();
                 }
             });
         }
     });
-
-//    $(document).on('click', '.section .body', function() {
-//        $(this).slideUp();
-//    });
 });
