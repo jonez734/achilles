@@ -19,7 +19,7 @@ $(document).ready(function() {
                     // 1. Swap Header Text
                     var newTitle = $html.find('.header h1').text();
                     if (newTitle) {
-                        $header.find('h1').text(newTitle);
+                        $header.text(newTitle);
                     }
 
                     // 2. Extract only the inner content of the loaded .body
