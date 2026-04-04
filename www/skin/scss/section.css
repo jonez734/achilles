@@ -12,11 +12,7 @@
   border: none;
   margin: 0.25em;
 }
-.blurb.section .header {
+.blurb.section .header h1 {
   cursor: pointer;
   user-select: none;
-}
-.blurb.section .body {
-  cursor: pointer;
-  /* This border-top comes from blurb.scss but is visible only when open */
 }

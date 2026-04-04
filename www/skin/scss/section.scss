@@ -13,20 +13,9 @@
 .blurb.section {
     border: none;
     margin: $blurb-margin;
-//    border-bottom: $blurb-border;
 
-    .header {
+    .header h1 {
         cursor: pointer;
         user-select: none;
     }
-
-    .body {
-        cursor: pointer;
-        /* This border-top comes from blurb.scss but is visible only when open */
-//        border-top: $blurb-border; // 0.125em solid $blurb-border-color; 
-//	border:0.25em solid black;
-    }
-//    .body {
-//	border: 1.0em solid yellow;
-//    }
 }
