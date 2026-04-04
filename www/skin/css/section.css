@@ -5,6 +5,11 @@
   display: inline-block;
   cursor: pointer;
   flex-shrink: 0;
+  line-height: 1;
+}
+
+.arrow:hover {
+  cursor: pointer;
 }
 
 /* Rotate the arrow 45 degrees when the section is open */
