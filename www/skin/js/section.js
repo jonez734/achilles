@@ -1,6 +1,8 @@
 $(document).ready(function() {
-    $('.section .header h1').on('click', function() {
-        var $header = $(this);
+    $('.section .header h1, .section .header .arrow').on('click', function() {
+        var $header = $(this).closest('.header');
+        var $h1 = $header.find('h1');
+        var $arrow = $header.find('.arrow');
         var $section = $header.closest('.section');
         var $body = $section.find('.body');
         var sectionName = $section.data('name');
@@ -10,6 +12,9 @@ $(document).ready(function() {
             $body.html('<div class="error">Invalid section.</div>').slideDown();
             return;
         }
+
+        // Toggle arrow rotation
+        $arrow.toggleClass('open');
 
         if ($.trim($body.html()) !== '') {
             $body.slideToggle();
@@ -24,7 +29,7 @@ $(document).ready(function() {
                     
                     var newTitle = $html.find('.header h1').text();
                     if (newTitle && newTitle.trim()) {
-                        $header.text(newTitle.trim());
+                        $h1.text(newTitle.trim());
                     }
 
                     var newBodyContent = $html.find('.body').html();

@@ -2,7 +2,7 @@
 <!-- index.tmpl in achilles -->
 {block name="head" append}
 {* <link rel="stylesheet" type="text/css" href="{$smarty.const.SKINDIR}css/accordian.css" media="screen" /> *}
-{* <script defer src="{$smarty.const.JSURL}accordian.js"></script> *}
+<script defer src="{$smarty.const.JSURL}accordion.js"></script>
 {* <script src="{$smarty.const.JSURL}achilles.js"></script> *}
 
 <script defer src="{$smarty.const.JSURL}section.js"></script>
@@ -12,51 +12,10 @@
 {/block}
 {block name="title"}achilles - a study of sodium glutamates{/block}
 {block name="content"}
-{include file="00-not-medical-advice.tmpl"}
-{include file="00-warning-ai-content.tmpl"}
+{include file="00-warnings.tmpl"}
 
 {foreach $data.sections as $name => $config}
   {include file="section.tmpl" name=$name config=$config}
 {/foreach}
 
-{*
-{include file="sections/summary.tmpl" open=true}
-{include file="sections/goals.tmpl"}
-
-{include file="sections/us-military-using-msg-during-korea.tmpl"}
-*}
-{*
-<details>
-<summary>Red Dye #3</summary>
-<div class="content">
-{include file="sections/erythrosine-red-dye-3.tmpl"}
-</div>
-</details>
-*}
-{*
-{include file="sections/chatgpt-distinct-glutamate-sodium.tmpl"}
-
-{include file="sections/openai-msg-contact-with-cell.tmpl"}
-
-{include file="sections/openai-about-msg.tmpl"}
-{include file="sections/chemistry.tmpl"}
-
-{include file="sections/openai-how-glutamate-is-used.tmpl"}
-{include file="sections/openai-chemical-name-for-protein-bound-to-glutamate.tmpl"}
-{include file="sections/openai-is-msg-used-by-qsr.tmpl"}
-{include file="sections/openai-does-staff-of-qsr-know-about-msg.tmpl"}
-{include file="sections/openai-bk-use-msg-in-chicken.tmpl"}
-{include file="sections/openai-msg-same-as-disodium.tmpl"}
-{include file="sections/openai-should-low-sodium-diet-avoid-msg.tmpl"}
-{include file="sections/openai-does-msg-exacerbate-existing-symptoms.tmpl"}
-{include file="sections/openai-appropriate-amount-of-msg.tmpl"}
-{include file="sections/openai-how-long-do-symptoms-of-msg-last.tmpl"}
-{include file="sections/openai-is-msg-in-cheese.tmpl"}
-{include file="sections/details.tmpl"}
-{include file="sections/nutrition-guides.tmpl"}
-{include file="sections/examples.tmpl"}
-{include file="sections/changelog.tmpl"}
-{include file="sections/healthlinks.tmpl" links=$data.healthlinks}
-{include file="sections/timeline.tmpl"}
-*}
 {/block} {* content *}

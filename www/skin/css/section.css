@@ -1,6 +1,9 @@
 .arrow {
   transition: transform 0.3s ease;
   font-size: 0.8em;
+  margin-right: 0.5em;
+  display: inline-block;
+  cursor: pointer;
 }
 
 /* Rotate the arrow 90 degrees when the section is open */
@@ -11,6 +14,10 @@
 .blurb.section {
   border: none;
   margin: 0.25em;
+}
+.blurb.section .header {
+  display: flex;
+  align-items: center;
 }
 .blurb.section .header h1 {
   cursor: pointer;
