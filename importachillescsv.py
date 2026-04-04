@@ -19,11 +19,7 @@ def buildargs(args=None, **kw):
     parser.add_argument("filename", nargs="?", default="vulcan-achilles-20230707.csv")
 
     defaults = {
-        "databasename": "zoid6",
-        "databasehost": "localhost",
-        "databaseuser": None,
-        "databaseport": 5432,
-        "databasepassword": None,
+        "databaseschema": "vulcan",
     }
     database.buildargs(parser, defaults)
 
