@@ -4,11 +4,12 @@
   margin-right: 0.5em;
   display: inline-block;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
-/* Rotate the arrow 90 degrees when the section is open */
+/* Rotate the arrow 45 degrees when the section is open */
 .arrow.open {
-  transform: rotate(90deg);
+  transform: rotate(45deg);
 }
 
 .blurb.section {
@@ -18,8 +19,11 @@
 .blurb.section .header {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
 }
 .blurb.section .header h1 {
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
+  margin: 0;
 }
