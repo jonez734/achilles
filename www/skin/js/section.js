@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('.section .header').on('click', function() {
+    $('.section .header h1').on('click', function() {
         var $header = $(this);
         var $section = $header.closest('.section');
         var $body = $section.find('.body'); // The placeholder .body in section.tmpl
