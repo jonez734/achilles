@@ -5,3 +5,6 @@ RewriteBase /
 #RewriteRule ^logout[/]?$ logout.php [last]
 RewriteRule ^about[/]?$ /page.php?name=about [last]
 RewriteRule ^timeline[/]?$ /page.php?name=timeline [last]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^sections/([a-zA-Z0-9_-]+)$ /section.php?section=$1 [last,QSA]
