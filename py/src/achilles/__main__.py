@@ -1,7 +1,7 @@
 import time
 import locale
 
-from bbsengine6 import io, session, screen
+from bbsengine6 import io, screen
 
 from . import lib
 
@@ -18,8 +18,6 @@ if __name__ == "__main__":
     parser = lib.buildargs()
     args = parser.parse_args()
 
-    session.start(args)
-
     screen.init()
     init(args)
 
@@ -27,9 +25,7 @@ if __name__ == "__main__":
     time.tzset()
 
     try:
-        lib.runmodule(
-            args, "main"
-        )  # main(args) # lib.runsubmodule(args, "main") # module.main(args)
+        lib.runmodule(args, "main")
     except KeyboardInterrupt:
         io.echo("{/all}*INTR*")
     except EOFError:
