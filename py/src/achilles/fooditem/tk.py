@@ -1,7 +1,7 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 import argparse
 from tkinter import (
@@ -19,8 +19,7 @@ from tkinter import (
 )
 from bbsengine6 import database
 
-from achilles import fooditem as libfooditem
-from achilles import ui_schema
+from achilles.fooditem import FoodItem, select
 
 
 class FoodItemForm:
@@ -39,8 +38,16 @@ class FoodItemForm:
         self.entries = {}
         self.checkboxes = {}
 
-        schema = ui_schema.ui_schema()
-        self._build_form(schema.get("FoodItem", {}))
+        schema = {
+            "name": {"type": "text", "label": "Name"},
+            "upc": {"type": "text", "label": "UPC"},
+            "qsr": {"type": "bool", "label": "QSR"},
+            "msgpresent": {"type": "bool", "label": "MSG Present"},
+            "frozen": {"type": "bool", "label": "Frozen"},
+            "wic": {"type": "bool", "label": "WIC"},
+            "description": {"type": "text", "label": "Description"},
+        }
+        self._build_form(schema)
 
         button_frame = Frame(root)
         button_frame.pack(fill=X, padx=10, pady=10)
@@ -103,7 +110,7 @@ class FoodItemForm:
 
         try:
             with database.connect(self.args) as pool:
-                f = libfooditem.FoodItem(self.args, pool=pool)
+                f = FoodItem(self.args, pool=pool)
 
                 for key, val in values.items():
                     if hasattr(f, key):
@@ -125,7 +132,7 @@ class FoodItemForm:
     def _load(self):
         try:
             with database.connect(self.args) as pool:
-                f = libfooditem.select(self.args, pool=pool)
+                f = select(self.args, pool=pool)
                 if f is not None:
                     values = {}
                     for key in self.entries.keys():

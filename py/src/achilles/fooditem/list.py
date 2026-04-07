@@ -2,7 +2,7 @@ from typing import Optional
 
 from bbsengine6 import database, util
 
-from . import fooditem as libfooditem
+from . import select
 
 
 def init(args, **kw: dict) -> Optional[bool]:
@@ -21,7 +21,7 @@ def main(args, **kw) -> None:
     util.heading("fooditem list")
 
     with database.connect(args) as pool:
-        f = libfooditem.select(args, pool=pool)
+        f = select(args, pool=pool)
         if f is not None:
             f.status()
     return

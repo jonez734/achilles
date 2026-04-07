@@ -1,17 +1,19 @@
+from typing import Optional
+
 from bbsengine6 import io, database
 
-from . import fooditem as libfooditem
+from . import select
 
 
-def init(args, **kw: dict) -> bool:
-    return True
+def init(args, **kw: dict) -> Optional[bool]:
+    return None
 
 
-def access(args, op: str, **kw: dict) -> bool:
-    return True
+def access(args, op: str, **kw: dict) -> Optional[bool]:
+    return None
 
 
-def buildargs(args, **kw: dict):
+def buildargs(args, **kw: dict) -> Optional[object]:
     return None
 
 
@@ -20,18 +22,15 @@ def main(args, **kw):
         io.echo("{red}*** DRY RUN - no changes will be made ***{/all}")
 
     with database.connect(args) as pool:
-        f = libfooditem.select(args, pool=pool)
+        f = select(args, pool=pool)
         if f is None:
             return
 
         f.status()
 
-        if (
-            io.inputboolean(
-                "{promptcolor}delete fooditem? {optioncolor}[yN]{promptcolor}: {inputcolor}",
-                "N",
-            )
-            is True
+        if io.inputboolean(
+            "{promptcolor}delete fooditem? {optioncolor}[yN]{promptcolor}: {inputcolor}",
+            "N",
         ):
             database.delete(
                 args,

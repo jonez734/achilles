@@ -1,11 +1,10 @@
-from argparse import ArgumentParser
-from datetime import datetime
+import argparse
 from typing import Optional
 
 from bbsengine6 import io, database
 
-from . import fooditem as libfooditem
-from . import lib
+from . import FoodItem
+from .tui import _edit
 
 
 def init(args, **kw: dict) -> Optional[bool]:
@@ -16,7 +15,7 @@ def access(args, op: str, **kw: dict) -> Optional[bool]:
     return None
 
 
-def buildargs(args, **kw: dict) -> Optional[ArgumentParser]:
+def buildargs(args, **kw: dict) -> Optional[argparse.ArgumentParser]:
     return None
 
 
@@ -25,7 +24,7 @@ def main(args, **kw):
         io.echo("{red}*** DRY RUN - no changes will be made ***{/all}")
 
     with database.connect(args) as pool:
-        f = libfooditem.FoodItem(args, pool=pool)
+        f = FoodItem(args, pool=pool)
         f.name = ""
         f.qsr = False
         f.msgpresent = False
@@ -33,19 +32,18 @@ def main(args, **kw):
         f.frozen = False
         f.wic = False
 
-        _fooditem = lib._edit(args, f, "add")
+        _fooditem = _edit(args, f, "add")
 
         if f.name is None or f.name == "":
             io.echo("name is required", level="error")
             return
 
-        if (
-            io.inputboolean(
-                "{promptcolor}add fooditem? {optioncolor}[yN]{promptcolor}: {inputcolor}",
-                "N",
-            )
-            is True
+        if io.inputboolean(
+            "{promptcolor}add fooditem? {optioncolor}[yN]{promptcolor}: {inputcolor}",
+            "N",
         ):
+            from datetime import datetime
+
             _fooditem.dateposted = datetime.now()
             rec = _fooditem.buildrec()
             database.insert(

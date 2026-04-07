@@ -1,26 +1,14 @@
-#
-# (C) 2023 zoidtechnologies.com All Rights Reserved.
-#
-
-
 from bbsengine6 import io, screen, util
 
 from . import lib
 
-# membermap = {"jam" : 1}
-# loginid = pwd.getpwuid(os.geteuid())[0]
-# if loginid in membermap:
-#  memberid = membermap[loginid]
-# else:
-#  memberid = None
-
 
 def init(args, **kw):
-    return True
+    return None
 
 
 def access(args, op, **kw):
-    return True
+    return None
 
 
 def buildargs(args=None, **kw):
@@ -35,9 +23,7 @@ def main(args, **kw):
     done = False
     while not done:
         lib.setarea(args, "achilles")
-        screen.title(
-            "achilles: fooditems database"
-        )  # , hrcolor="{darkgreen}", titlecolor="{bggray}{white}")
+        screen.title("achilles: fooditems database")
         util.heading("achilles: fooditem database")
         buf = ""
         for m in mainmenu:
@@ -54,13 +40,13 @@ def main(args, **kw):
             done = True
         elif ch == "L":
             io.echo("List{/all}")
-            lib.runmodule(args, "list")
+            lib.runmodule(args, "fooditem.list")
         elif ch == "A":
             io.echo("Add{/all}")
-            lib.runmodule(args, "add")
+            lib.runmodule(args, "fooditem.add")
         elif ch == "E":
             io.echo("Edit{/all}")
-            lib.runmodule(args, "edit")
+            lib.runmodule(args, "fooditem.edit")
         else:
             io.echo("{bell}")
     return
