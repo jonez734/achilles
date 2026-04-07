@@ -24,7 +24,7 @@ if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, "")
     time.tzset()
 
-    with database.getpool(args, dbname=args.database) as pool:
+    with database.getpool(args, dbname=args.databasename) as pool:
         if session.start(args, pool=pool) is False:
             io.echo("achilles.__main__: session.start() failed", level="error")
         else:

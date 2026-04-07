@@ -8,7 +8,7 @@ def init(args, **kw):
 
 
 def access(args, op, **kw):
-    return None
+    return True
 
 
 def buildargs(args=None, **kw):
@@ -23,7 +23,7 @@ def main(args, **kw):
     done = False
     while not done:
         lib.setarea(args, "achilles")
-        screen.title("achilles: fooditems database")
+        io.terminal.title("achilles: fooditems database")
         util.heading("achilles: fooditem database")
         buf = ""
         for m in mainmenu:

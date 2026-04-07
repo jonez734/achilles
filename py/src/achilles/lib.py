@@ -43,4 +43,4 @@ def setarea(args, left, stack=False):
             rightbuf += " | debug"
         return rightbuf
 
-    screen.setarea(left, right, stack)
+    screen.setbottombar(left, right)
