@@ -36,5 +36,5 @@ if __name__ == "__main__":
         io.echo("{/all}*EOF*")
     finally:
         io.echo(
-            "{decsc}{curpos:%d,0}{el}{decrc}{reset}{/all}" % (io.getterminalheight())
+            "{decsc}{curpos:%d,0}{el}{decrc}{reset}{/all}" % (io.terminal.height())
         )
