@@ -7,11 +7,11 @@ from . import lib
 
 
 def init(args, **kw):
-    return True
+    return None
 
 
 def access(args, op, **kw):
-    return True
+    return None
 
 
 if __name__ == "__main__":
@@ -36,5 +36,5 @@ if __name__ == "__main__":
         io.echo("{/all}*EOF*")
     finally:
         io.echo(
-            "{decsc}{curpos:%d,0}{el}{decrc}{reset}{/all}" % (io.terminal.height())
+            f"{{savecursor}}{{curpos:{io.terminal.height()},0}}{{el}}{{reset}}{{restorecursor}}"
         )
