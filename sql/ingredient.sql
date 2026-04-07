@@ -20,5 +20,5 @@ create table if not exists achilles.map_fooditem_ingredient (
 
 create unique index if not exists idx_map_fooditem_ingredient on achilles.map_fooditem_ingredient(fooditemid, ingredientid);
 
-grant all on achilles.map_food_ingredient to :web;
-grant all on achilles.map_food_ingredient to :bbs;
+grant all on achilles.map_fooditem_ingredient to :web;
+grant all on achilles.map_fooditem_ingredient to :bbs;

@@ -7,5 +7,5 @@ create or replace view achilles.additive as
     where n.prg = 'achilles.additive'
 ;
 
-grant select on achilles.aditive to :web;
-grant select on achilles.aditive to :bbs;
+grant select on achilles.additive to :web;
+grant select on achilles.additive to :bbs;

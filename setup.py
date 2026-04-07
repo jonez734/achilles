@@ -16,7 +16,7 @@ setup(
     author="zoid technologies",
     author_email="%s@projects.zoidtechnologies.com" % (projectname),
     py_modules=["libachilles", "achilles"],
-    requires=["ttyio5", "bbsengine5"],  # , "python-barcode"],
+    requires=["bbsengine6", "psycopg"],  # was ttyio5, bbsengine5
     scripts=["achilles"],
     license="GPLv3+",
     provides=[projectname],

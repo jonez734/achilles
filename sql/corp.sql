@@ -8,3 +8,6 @@ create or replace view achilles.corp as
     from engine.node as n
     where n.prg = 'achilles.corp'
 ;
+
+grant select on achilles.corp to :web;
+grant select on achilles.corp to :bbs;

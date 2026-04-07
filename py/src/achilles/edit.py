@@ -21,36 +21,29 @@ def main(args, **kw):
         io.echo("{red}*** DRY RUN - no changes will be made ***{/all}")
 
     with database.connect(args) as pool:
-        f = libfooditem.FoodItem(args, pool=pool)
-        f.name = ""
-        f.qsr = False
-        f.msgpresent = False
-        f.msgonlabel = False
-        f.frozen = False
-        f.wic = False
-
-        _fooditem = lib._edit(args, f, "add")
-
-        if f.name is None or f.name == "":
-            io.echo("name is required", level="error")
+        f = libfooditem.select(args, pool=pool)
+        if f is None:
             return
+
+        _fooditem = lib._edit(args, f, "edit")
 
         if (
             io.inputboolean(
-                "{promptcolor}add fooditem? {optioncolor}[yN]{promptcolor}: {inputcolor}",
+                "{promptcolor}save changes? {optioncolor}[yN]{promptcolor}: {inputcolor}",
                 "N",
             )
             is True
         ):
-            _fooditem.dateposted = __import__("datetime").datetime.now()
+            _fooditem.datemodified = __import__("datetime").datetime.now()
             rec = _fooditem.buildrec()
-            database.insert(
+            database.update(
                 args,
                 "achilles.__fooditem",
+                _fooditem.id,
                 rec,
                 primarykey="id",
                 conn=pool,
                 commit=True,
             )
-            io.echo(f"added fooditem: {_fooditem.name}", level="info")
+            io.echo(f"updated fooditem: {_fooditem.name}", level="info")
     return

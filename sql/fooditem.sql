@@ -1,53 +1,71 @@
 \echo fooditem
+create table if not exists achilles.__fooditem (
+    "id" bigserial unique not null primary key,
+    "upc" text,
+    "sku" text,
+    "lot" text,
+    "serial" text,
+    "name" text not null,
+    "title" text,
+    "description" text,
+    "brandid" bigint,
+    "manufid" bigint,
+    "qsr" boolean default false,
+    "msgpresent" boolean default false,
+    "msgonlabel" boolean default false,
+    "dsgpresent" boolean default false,
+    "dsgonlabel" boolean default false,
+    "frozen" boolean default false,
+    "wic" boolean default false,
+    "price" numeric(10,2),
+    "quantity" text,
+    "producturl" text,
+    "datepurchased" timestamptz,
+    "dateposted" timestamptz,
+    "postedbymoniker" citext constraint fk_fooditem_postedbymoniker references engine.__member(moniker) on update cascade on delete set null,
+    "datemodified" timestamptz,
+    "modifiedbymoniker" citext constraint fk_fooditem_modifiedbymoniker references engine.__member(moniker) on update cascade on delete set null
+);
+
+create unique index if not exists idx_fooditem_upc on achilles.__fooditem(upc) where upc is not null;
+create unique index if not exists idx_fooditem_name on achilles.__fooditem(name) where name is not null;
+
+grant insert, update, delete on achilles.__fooditem to :web;
+grant select on achilles.__fooditem to :web;
+grant select on achilles.__fooditem to :bbs;
+
 create or replace view achilles.fooditem as
-  select b.*,
-    (b.attributes->>'brandid')::bigint as brandid,
-    (b.attributes->>'manufid')::bigint as manufid,
-    (b.attributes->>'upc')::text as upc,
-    (b.attributes->>'sku')::text as sku,
-    (b.attributes->>'lot')::text as lot,
-    (b.attributes->>'serial')::text as serial,
-    (b.attributes->>'name')::text as name,
-    (b.attributes->>'title')::text as title,
-    (b.attributes->>'description')::text as description,
-    (b.attributes->>'frozen')::boolean as frozen,
-    (b.attributes->>'wic')::boolean as wic
-  from engine.__blurb as b
-  where b.prg = 'achilles.fooditem'
+  select
+    id,
+    upc,
+    sku,
+    lot,
+    serial,
+    name,
+    title,
+    description,
+    brandid,
+    manufid,
+    qsr,
+    msgpresent,
+    msgonlabel,
+    dsgpresent,
+    dsgonlabel,
+    frozen,
+    wic,
+    price,
+    quantity,
+    producturl,
+    datepurchased,
+    dateposted,
+    postedbymoniker,
+    datemodified,
+    modifiedbymoniker,
+    extract(epoch from datepurchased) as datepurchasedepoch,
+    extract(epoch from dateposted) as datepostedepoch,
+    extract(epoch from datemodified) as datemodifiedepoch
+  from achilles.__fooditem
 ;
 
---create table achilles.__fooditem (
---  "id" serial unique not null primary key,
---  "upc" text unique,
---  "name" text,
---  "description" text,
---  "brand" text,
---  "industry" text, -- fast food (qsr), hospitality, etc
---  "frozen" boolean default 'f',
---  "price" numeric(10,2),
---  "msgpresent" boolean default 'f',
---  "msgonlabel" boolean default 'f',
---  "dsgpresent" boolean default 'f',
---  "dsgonlabel" boolean default 'f',
---  "quantity" text,
---  "producturl" text,
---  "storeid" text,
---  "locationpurchased" text,
---  "datepurchased" timestamptz,
---  "postedbyid" integer constraint fk_fooditem_postedbyid references engine.__member(id) on update cascade on delete set null,
---  "dateposted" timestamptz,
---  "datemodified" timestamptz,
---  "modifiedbyid" integer constraint fk_fooditem_modifiedbyid references engine.__member(id) on update cascade on delete set null
---);
-
---grant insert, update, delete on achilles.__fooditem to "apache";
-
---create view achilles.fooditem as
---  select achilles.__fooditem.*,
---    extract(epoch from datepurchased) as datepurchasedepoch,
---    extract(epoch from dateposted) as datepostedepoch,
---    extract(epoch from datemodified) as datemodifiedepoch
---  from achilles.__fooditem
---;
-
---grant select on achilles.fooditem to "apache";
+grant select on achilles.fooditem to :web;
+grant select on achilles.fooditem to :bbs;

@@ -1,5 +1,6 @@
 export HOST = merlin
 export PROJECT = achilles
+export VERSION = $(shell date +%Y%m%d%H%M)
 
 export PROD = $(HOST):/srv/www/vhosts/zoidtechnologies.com/html/$(PROJECT)/
 export STAGE = /srv/staging/zoidtechnologies.com/html/$(PROJECT)/
@@ -16,6 +17,10 @@ export RSYNC = rsync --delete-after --chmod=Dg=rwxs,Fgu=rw,Fo=r --verbose \
 export SCSS = sass --sourcemap=none --stop-on-error --trace --style expanded
 
 all:
+
+version:
+	@echo '__version__ = "0.0.1.dev$(VERSION)"' > py/src/achilles/_version.py
+	@echo '__datestamp__ = "'`date +%Y%m%d-%H%M`-`whoami`'"' >> py/src/achilles/_version.py
 
 clean:
 	-rm *~

@@ -1,0 +1,22 @@
+class conf:
+    FOODITEM = {
+        "upc": None,
+        "sku": None,
+        "lot": None,
+        "serial": None,
+        "name": None,
+        "title": None,
+        "description": None,
+        "brandid": None,
+        "manufid": None,
+        "qsr": False,
+        "msgpresent": False,
+        "msgonlabel": False,
+        "dsgpresent": False,
+        "dsgonlabel": False,
+        "frozen": False,
+        "wic": False,
+        "price": None,
+        "quantity": None,
+        "producturl": None,
+    }

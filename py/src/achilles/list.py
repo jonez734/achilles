@@ -1,4 +1,6 @@
-from bbsengine6 import util
+from bbsengine6 import io, database, util
+
+from . import fooditem as libfooditem
 
 
 def init(args, **kw: dict) -> bool:
@@ -10,10 +12,14 @@ def access(args, op: str, **kw: dict) -> bool:
 
 
 def buildargs(args, **kw: dict):
-    #    return lib.buildargs(args, **kw)
     return None
 
 
 def main(args, **kw):
     util.heading("fooditem list")
-    return True
+
+    with database.connect(args) as pool:
+        f = libfooditem.select(args, pool=pool)
+        if f is not None:
+            f.status()
+    return
