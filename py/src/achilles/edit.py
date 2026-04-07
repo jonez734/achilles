@@ -1,18 +1,22 @@
+from argparse import ArgumentParser
+from datetime import datetime
+from typing import Optional
+
 from bbsengine6 import io, database
 
 from . import fooditem as libfooditem
 from . import lib
 
 
-def init(args, **kw: dict) -> bool:
-    return True
+def init(args, **kw: dict) -> Optional[bool]:
+    return None
 
 
-def access(args, op: str, **kw: dict) -> bool:
-    return True
+def access(args, op: str, **kw: dict) -> Optional[bool]:
+    return None
 
 
-def buildargs(args, **kw: dict):
+def buildargs(args, **kw: dict) -> Optional[ArgumentParser]:
     return None
 
 
@@ -34,7 +38,7 @@ def main(args, **kw):
             )
             is True
         ):
-            _fooditem.datemodified = __import__("datetime").datetime.now()
+            _fooditem.datemodified = datetime.now()
             rec = _fooditem.buildrec()
             database.update(
                 args,

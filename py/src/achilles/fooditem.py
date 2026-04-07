@@ -5,9 +5,9 @@ from typing import Any, Optional
 
 import dateutil.tz
 
-from bbsengine6 import database, io, member, util
+from bbsengine6 import database, io, util
 from bbsengine6.listboxcursor import ListboxCursor
-from bbsengine6.listbox import ListboxItem, ListboxResult
+from bbsengine6.listbox import ListboxItem
 
 ATTRIBUTES = {
     "upc": {"default": None},
@@ -119,7 +119,7 @@ class FoodItem:
             try:
                 value = int(value)
             except (ValueError, TypeError):
-                io.echo(f"invalid value: must be a number", level="error")
+                io.echo("invalid value: must be a number", level="error")
                 return None, False
             if value < 0:
                 io.echo("negative values not allowed", level="error")
@@ -130,6 +130,7 @@ class FoodItem:
         if isinstance(value, str):
             try:
                 from dateutil.parser import parse
+
                 return parse(value)
             except Exception:
                 pass
@@ -205,7 +206,7 @@ class FoodItem:
         if self.args.debug:
             io.echo(f"FoodItem.save.100: {self.id=}", level="debug")
         if self.id is None:
-            io.echo(f"fooditem id is not set. save aborted.", level="error")
+            io.echo("fooditem id is not set. save aborted.", level="error")
             return None
 
         if force or self.isdirty():
@@ -221,7 +222,6 @@ class FoodItem:
 
     def status(self):
         util.heading(f"fooditem status for {self.name}")
-        terminal_width = io.terminal.width() - 2
 
         def format_value(value):
             if value is None:
@@ -324,7 +324,9 @@ def count(args, **kwargs) -> int:
         return _work(conn)
 
 
-def select(args, title: str = "select fooditem", prompt: str = "fooditem: ", **kwargs) -> Optional[FoodItem]:
+def select(
+    args, title: str = "select fooditem", prompt: str = "fooditem: ", **kwargs
+) -> Optional[FoodItem]:
     pool = kwargs.get("pool", None)
     if pool is None:
         io.echo(f"achilles.FoodItem.select.300: {pool=}", level="error")
@@ -353,7 +355,7 @@ def select(args, title: str = "select fooditem", prompt: str = "fooditem: ", **k
 
         def help(self):
             io.echo(
-                f"{{var:labelcolor}}use {{var:valuecolor}}KEY_ENTER{{var:labelcolor}} to select"
+                "{var:labelcolor}use {var:valuecolor}KEY_ENTER{var:labelcolor} to select"
             )
 
     with database.connect(args, pool=pool) as conn:
@@ -385,7 +387,7 @@ def create(args, **kwargs) -> Optional[FoodItem]:
     pool = kwargs.get("pool", None)
     if pool is None:
         io.echo("achilles.FoodItem.create.140: pool is None", level="error")
-        return False
+        return None
 
     def _work(conn, name: str) -> FoodItem:
         f = FoodItem(args, pool=pool)
@@ -427,11 +429,11 @@ def create(args, **kwargs) -> Optional[FoodItem]:
             pool = kwargs.get("pool", None)
             if pool is None:
                 io.echo("create.140: pool is None", level="error")
-                return False
+                return None
             with database.connect(args, pool=pool) as conn:
                 return _work(conn, name)
         else:
             return _work(conn, name)
     except Exception as e:
-        io.echo(f"achilles.FoodItem.create.100: exception {e}", level="error")
-        raise
+        io.echo_traceback(f"achilles.FoodItem.create.100: {e}")
+        return None

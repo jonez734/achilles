@@ -4,12 +4,23 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 import argparse
-from tkinter import *
+from tkinter import (
+    Tk,
+    Frame,
+    Button,
+    Entry,
+    Label,
+    Checkbutton,
+    BooleanVar,
+    BOTH,
+    X,
+    LEFT,
+    W,
+)
 from bbsengine6 import database
 
 from achilles import fooditem as libfooditem
 from achilles import ui_schema
-from achilles import conf
 
 
 class FoodItemForm:
@@ -71,7 +82,7 @@ class FoodItemForm:
 
     def _set_values(self, values):
         for key, entry in self.entries.items():
-            entry.delete(0, END)
+            entry.delete(0, "end")
             val = values.get(key, "")
             if val is not None:
                 entry.insert(0, str(val))
@@ -80,7 +91,7 @@ class FoodItemForm:
 
     def _clear(self):
         for entry in self.entries.values():
-            entry.delete(0, END)
+            entry.delete(0, "end")
         for var in self.checkboxes.values():
             var.set(False)
 
@@ -130,7 +141,7 @@ class FoodItemForm:
 
 def main():
     root = Tk()
-    app = FoodItemForm(root)
+    FoodItemForm(root)
     root.mainloop()
 
 

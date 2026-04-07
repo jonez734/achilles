@@ -28,16 +28,21 @@ function buildfooditemfieldset($form)
 function buildfooditemrecord($values)
 {
   $fooditem = array();
-  $fooditem["name"] = $values["name"];
-  $fooditem["description"] = $values["description"];
-  $fooditem["brand"] = $values["brand"];
+  $fooditem["name"] = isset($values["name"]) ? trim($values["name"]) : null;
+  $fooditem["description"] = isset($values["description"]) ? trim($values["description"]) : null;
+  $fooditem["brand"] = isset($values["brand"]) ? trim($values["brand"]) : null;
   $fooditem["qsr"] = isset($values["qsr"]) ? True : False;
-  $fooditem["price"] = $values["price"];
+  $fooditem["price"] = isset($values["price"]) ? filter_var($values["price"], FILTER_SANITIZE_NUMBER_FLOAT) : null;
   $fooditem["msgpresent"] = isset($values["msgpresent"]) ? True : False;
   $fooditem["msgonlabel"] = isset($values["msgonlabel"]) ? True : False;
-  $fooditem["datepurchased"] = $values["datepurchased"];
-  $fooditem["upc"] = $values["upc"];
-  
+  $fooditem["datepurchased"] = isset($values["datepurchased"]) ? trim($values["datepurchased"]) : null;
+  $fooditem["upc"] = isset($values["upc"]) ? preg_replace('/[^0-9]/', '', trim($values["upc"])) : null;
+
+  if (empty($fooditem["name"]))
+  {
+    throw new InvalidArgumentException("Name is required");
+  }
+
   return $fooditem;
 }
 

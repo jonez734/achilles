@@ -1,10 +1,7 @@
 import argparse
 import copy
 
-from bbsengine6 import io, database, module, member, screen, util
-
-from . import fooditem as libfooditem
-from . import ui_schema
+from bbsengine6 import database, io, module, member, screen, util
 
 
 def buildargs(args=None, **kw):
@@ -19,7 +16,7 @@ def buildargs(args=None, **kw):
         "--dry-run",
         dest="dryrun",
         action="store_true",
-        default=True,
+        default=False,
         help="dry run (no database changes)",
     )
     database.buildargdatabasegroup(parser)
@@ -92,9 +89,7 @@ def _edit(args, fooditem, mode="edit"):
             end="",
         )
         if fooditem.qsr != _fooditem.qsr:
-            io.echo(
-                f"{{labelcolor}} (was: {{valuecolor}}{fooditem.qsr}{{labelcolor}})"
-            )
+            io.echo(f"{{labelcolor}} (was: {{valuecolor}}{fooditem.qsr}{{labelcolor}})")
         else:
             io.echo()
         io.echo(

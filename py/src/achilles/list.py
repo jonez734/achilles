@@ -1,21 +1,23 @@
-from bbsengine6 import io, database, util
+from typing import Optional
+
+from bbsengine6 import database, util
 
 from . import fooditem as libfooditem
 
 
-def init(args, **kw: dict) -> bool:
-    return True
-
-
-def access(args, op: str, **kw: dict) -> bool:
-    return True
-
-
-def buildargs(args, **kw: dict):
+def init(args, **kw: dict) -> Optional[bool]:
     return None
 
 
-def main(args, **kw):
+def access(args, op: str, **kw: dict) -> Optional[bool]:
+    return None
+
+
+def buildargs(args, **kw: dict) -> Optional[object]:
+    return None
+
+
+def main(args, **kw) -> None:
     util.heading("fooditem list")
 
     with database.connect(args) as pool:
