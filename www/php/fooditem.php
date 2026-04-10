@@ -9,6 +9,16 @@ class fooditem
 {
   function insert($values)
   {
+    // CSRF validation for state-changing operation
+    if (!\bbsengine6\util\csrfCheckRequest())
+    {
+      $remoteAddr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+      $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'unknown';
+      \bbsengine6\util\logentry("CSRF validation failed for fooditem.insert: ip={$remoteAddr}, user_agent={$userAgent}");
+      displayerrorpage("Invalid security token. Please try again (code: fooditem.insert.csrf)");
+      return False;
+    }
+    
     $fooditem = buildfooditemrecord($values);
     
     $page = array();
