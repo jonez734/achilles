@@ -80,7 +80,6 @@ class index
     $data = [];
 
     $data["healthlinks"] = $healthlinks;
-    $data["metadata"] = $metadata;
     $data["pagetemplate"] = "index.tmpl"; // achilles-page.tmpl";
 
     $choices = [];
