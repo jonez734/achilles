@@ -1,4 +1,4 @@
-MAIN_FILES = achilles.scss section.scss timeline.scss topbar.scss
+MAIN_FILES = achilles.scss section.scss timeline.scss topbar.scss blurb.scss page.scss pagefooter.scss
 CSS_FILES = $(MAIN_FILES:.scss=.css)
 
 all: $(CSS_FILES)
