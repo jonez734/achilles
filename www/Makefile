@@ -1,8 +1,8 @@
 export HOST = merlin
 export PROJECT = achilles
 
-export PROD = $(HOST):/srv/www/vhosts/zoidtechnologies.com/html/$(PROJECT)/
 export STAGE = /srv/www/vhosts/zoidtechnologies.com/html/$(PROJECT)/
+export PROD = $(HOST):$(STAGE)
 
 export datestamp = $(shell date +%Y%m%d-%H%M)
 export archivename = $(PROJECT)-$(datestamp)-$(USER)

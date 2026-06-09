@@ -1,6 +1,6 @@
 <?php
 
-namespace {
+namespace achilles;
 
 define("ACHILLES_DSN", "pgsql:host=127.0.0.1;port=5432;dbname=achilles");
 
@@ -170,17 +170,13 @@ function achilles_fooditem_search(string $term): array
   return $stmt->fetchAll();
 }
 
-}
-
-namespace {
-
 require_once("config.php");
 require_once("achilles.php");
 require_once("engine.php");
 require_once("session.php");
 require_once("util.php");
 
-class fooditem
+class FoodItem
 {
   function insert($values)
   {
@@ -197,7 +193,7 @@ class fooditem
     $fooditem["dateposted"] = date('Y-m-d H:i:s');
     $fooditem["postedbymoniker"] = \bbsengine6\member\lib\getcurrentmoniker();
 
-    $id = \achilles_fooditem_insert($fooditem);
+    $id = achilles_fooditem_insert($fooditem);
 
     if ($id === null)
     {
@@ -233,13 +229,13 @@ class fooditem
 
     $defaults = [];
 
-    $form->addDataSource(new HTML_QuickForm2_DataSource_Array($defaults));
+    $form->addDataSource(new \HTML_QuickForm2_DataSource_Array($defaults));
 
     $const = [];
     $const["mode"] = "add";
     $const["moniker"] = $currentmoniker;
 
-    $form->addDataSource(new HTML_QuickForm2_DataSource_Array($const));
+    $form->addDataSource(new \HTML_QuickForm2_DataSource_Array($const));
 
     $res = \bbsengine6\handleform($form, array($this, "insert"), "add fooditem");
     if ($res === true)
@@ -252,7 +248,7 @@ class fooditem
     $form->render($renderer);
 
     $res = \bbsengine6\displayform($renderer, "add fooditem");
-    if (PEAR::isError($res))
+    if (\PEAR::isError($res))
     {
       \bbsengine6\util\logentry("achilles.fooditem.add.101: " . $res->toString());
     }
@@ -276,7 +272,7 @@ class fooditem
       }
       default:
       {
-        $res = PEAR::raiseError("invalid mode" . var_export($mode, true));
+        $res = \PEAR::raiseError("invalid mode" . var_export($mode, true));
         break;
       }
     }
@@ -285,13 +281,11 @@ class fooditem
   }
 };
 
-$a = new fooditem();
+$a = new FoodItem();
 $b = $a->main();
-if (PEAR::isError($b))
+if (\PEAR::isError($b))
 {
   \bbsengine6\page\error($b->getMessage());
   \bbsengine6\util\logentry("fooditem.1000: " . $b->toString());
   exit;
-}
-
 }
