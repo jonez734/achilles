@@ -22,7 +22,7 @@ define("config\JSURL", "/achilles/skin/js/");
 // Search order: 1) Site-specific templates 2) bbsengine6 shared 3) zoid6 shared
 define("config\SMARTYTEMPLATESDIR", [
     0 => \config\SKINDIR . "tmpl/",
-    1 => "/srv/www/zoid6/skin/tmpl/",
+    1 => "/srv/www/vhosts/zoidtechnologies.com/html/shared/skin/tmpl/",
     2 => "/srv/www/bbsengine6/skin/tmpl/"
 ]);
 
