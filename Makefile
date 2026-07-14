@@ -56,5 +56,7 @@ push:
 
 backup:
 	rsync --recursive --verbose --exclude=.venv . /run/media/jam/AEAB-CF37/projects/$(PROJECT)/
+
+deploy: www
 	
-.PHONY: www
+.PHONY: www deploy
