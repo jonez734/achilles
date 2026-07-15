@@ -30,8 +30,7 @@ clean:
 	$(MAKE) -C www clean
 
 www:
-	-$(MAKE) -C www stage
-	$(RSYNC) $(STAGE) $(PROD)
+	$(MAKE) -C www prod
 
 release:
 	echo "-=- making a new release of $(PROJECT) -=-";
@@ -58,5 +57,8 @@ backup:
 	rsync --recursive --verbose --exclude=.venv . /run/media/jam/AEAB-CF37/projects/$(PROJECT)/
 
 deploy: www
-	
-.PHONY: www deploy
+
+deploy-www:
+	$(MAKE) -C www prod
+
+.PHONY: www deploy deploy-www
