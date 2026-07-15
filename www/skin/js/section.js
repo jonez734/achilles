@@ -27,7 +27,7 @@ $(document).ready(function() {
                 success: function(data) {
                     var $html = $('<div>').html(data);
                     
-                    var newTitle = $html.find('.header h1').text();
+                    var newTitle = $html.find('.header h1, .header h2').text();
                     if (newTitle && newTitle.trim()) {
                         $h1.text(newTitle.trim());
                     }
