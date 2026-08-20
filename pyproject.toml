@@ -7,7 +7,7 @@ name = "achilles"
 dynamic = ["version"]
 description = "Tracking use of MSG (mono-sodium glutamate) and related additives"
 readme = "README.md"
-license = {text = "GPL-2.0-or-later"}
+license = "GPL-2.0-or-later"
 requires-python = ">=3.9,<3.13"
 authors = [
     {name = "zoid technologies", email = "achilles@projects.zoidtechnologies.com"},
