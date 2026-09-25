@@ -17,13 +17,18 @@ define("config\DOCUMENTROOT", \config\VHOSTDIR . "html/achilles/");
 define("config\SKINDIR", \config\DOCUMENTROOT . "skin/");
 define("config\SKINURL", \config\SITEURL . "skin/");
 define("config\JSURL", "/achilles/skin/js/");
-// Define SMARTY* constants before including zoid6config.php so it can create global aliases
-// SMARTYTEMPLATESDIR - 3-element array with proper precedence
-// Search order: 1) Site-specific templates 2) bbsengine6 shared 3) zoid6 shared
+
+// @since 2026-09-24 — load zoid6config.php first (which transitively
+// loads bbsengine6config.php, defining config\SHAREDTMPLDIR) before
+// the SMARTY* defines that reference \config\SHAREDTMPLDIR.
+require_once('zoid6config.php');
+
+// SMARTYTEMPLATESDIR - 2-element array (bbsengine6/skin/tmpl/ is
+// auto-appended by bbsengine6config.php as the engine fallback).
+// Search order: 1) Site-specific templates 2) shared zoid6 templates
 define("config\SMARTYTEMPLATESDIR", [
     0 => \config\SKINDIR . "tmpl/",
-    1 => "/srv/www/vhosts/zoidtechnologies.com/html/shared/skin/tmpl/",
-    2 => "/srv/www/bbsengine6/skin/tmpl/"
+    1 => \config\SHAREDTMPLDIR,
 ]);
 
 // SMARTYCOMPILEDTEMPLATESDIR - compiled template cache directory
@@ -34,9 +39,6 @@ define("config\SMARTYPLUGINSDIR", [
     0 => \config\VHOSTDIR . "smarty/",
     1 => "/srv/www/zoid6/smarty/"
 ]);
-
-// Now include zoid6config.php to create global aliases
-require_once('zoid6config.php');
 
 define("config\LOGENTRYPREFIX", "zoid6achilles");
 define("config\ENGINEURL", "/engine/");
