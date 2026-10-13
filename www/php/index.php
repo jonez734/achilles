@@ -17,6 +17,9 @@ class index
   {
     return [];
 
+    /* disabled 2026-10-13: vulcan.healthlinks query — dead code, never reached.
+       preserved here so the SQL can be re-enabled once the vulcan link map
+       is available. the function is hardcoded to return [] for now.
     $sql = "select elle.url from vulcan.link as elle, vulcan.map_link_sig as m where m.url = elle.url and m.path ~ 'top.achilles' order by elle.broken asc, lastmodified desc";
 
     $pdo = \bbsengine6\database\connect(\SYSTEMDSN);
@@ -44,6 +47,7 @@ class index
       }
     }
     return $healthlinks;
+    */
   }
 
   function getsectionnames(): array
@@ -64,7 +68,7 @@ class index
       return $sections;
   }
 
-  function main()
+  function main(): void
   {
     \bbsengine6\session\start();
     
@@ -116,11 +120,5 @@ class index
 //print("foo!");
 
 $a = new index();
-$b = $a->main();
-if (PEAR::isError($b))
-{
-  logentry("index.100: " . $b->toString());
-  displayerrorpage($b->getMessage());
-  exit;
-}
+$a->main();
 ?>
