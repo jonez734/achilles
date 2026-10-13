@@ -1,4 +1,9 @@
 <div class="blurb section" data-name="{$name}" data-open="{$config.open}">
   <div class="header"><span class="arrow">&#9654;</span><h1>{$name}</h1></div>
+{if $config.lastmodified !== false}
+  <div class="metadata">
+    <span class="lastmodified">{$config.lastmodified|datestamp}</span>
+  </div>
+{/if}
   <div class="body section-body" id="section-{$name}" style="display:none;"></div>
 </div>
