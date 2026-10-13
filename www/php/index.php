@@ -97,8 +97,10 @@ class index
 
     $sections = [];
     foreach ($sectionnames as $name) {
+      $tmplpath = SECTIONTEMPLATEDIR . $name . ".tmpl";
       $sections[$name] = [
-        'open' => false
+        'open' => false,
+        'lastmodified' => file_exists($tmplpath) ? filemtime($tmplpath) : false,
       ];
     }
 //    \bbsengine6\util\logentry("----> achilles.100: sections=".var_export($sections, true));
