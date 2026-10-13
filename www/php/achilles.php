@@ -31,16 +31,16 @@ function buildfooditemrecord($values)
   $fooditem["name"] = isset($values["name"]) ? trim($values["name"]) : null;
   $fooditem["description"] = isset($values["description"]) ? trim($values["description"]) : null;
   $fooditem["brand"] = isset($values["brand"]) ? trim($values["brand"]) : null;
-  $fooditem["qsr"] = isset($values["qsr"]) ? True : False;
+  $fooditem["qsr"] = isset($values["qsr"]) ? true : false;
   $fooditem["price"] = isset($values["price"]) ? filter_var($values["price"], FILTER_SANITIZE_NUMBER_FLOAT) : null;
-  $fooditem["msgpresent"] = isset($values["msgpresent"]) ? True : False;
-  $fooditem["msgonlabel"] = isset($values["msgonlabel"]) ? True : False;
+  $fooditem["msgpresent"] = isset($values["msgpresent"]) ? true : false;
+  $fooditem["msgonlabel"] = isset($values["msgonlabel"]) ? true : false;
   $fooditem["datepurchased"] = isset($values["datepurchased"]) ? trim($values["datepurchased"]) : null;
   $fooditem["upc"] = isset($values["upc"]) ? preg_replace('/[^0-9]/', '', trim($values["upc"])) : null;
 
   if (empty($fooditem["name"]))
   {
-    throw new InvalidArgumentException("Name is required");
+    throw new \InvalidArgumentException("Name is required");
   }
 
   return $fooditem;
@@ -50,7 +50,7 @@ function accessfooditem($op, $fooditem=[])
 {
   if ($op === "add")
   {
-    if (flag("AUTHENTICATED") === true)
+    if (\bbsengine6\member\lib\checkflag("AUTHENTICATED") === true)
     {
       return true;
     }
