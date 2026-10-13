@@ -7,13 +7,11 @@ require_once("zoid6.php");
 require_once("engine.php");
 require_once("session.php");
 
-function getsection($sectiontemplate)
+function getsection($sectiontemplate): array
 {
     $res = null;
 
-//    logentry("bed.getvar.100: var=".var_export($var, true));
-
-    $tmpl = getsmarty();
+    $tmpl = \bbsengine6\getsmarty();
     $data = [];
     $data["fragment"] = $tmpl->fetch($sectiontemplate);
     return $data;
@@ -29,13 +27,6 @@ function getsectiontemplates($directory = "skin/tmpl/sections")
 
 $section = isset($_REQUEST["section"]) ? $_REQUEST["section"] : null;
 $res = getsection($section);
-if (PEAR::isError($res))
-{
-    logentry("achilles.bed.100: var=".var_export($var, true)." ". $res->toString());
-    $res = ["fragment" => "<b>error</b>"];
-//    print encodejson($res);
-//    exit(1);
-}
 
 $encoded = \bbsengine6\encodejson($res);
 if (isset($_REQUEST["callback"]))
@@ -49,7 +40,7 @@ if (isset($_REQUEST["callback"]))
 else
 {
   header("Content-type: application/json");
-  logentry("bed.php.110: using json (no callback)");
+  \bbsengine6\util\logentry("bed.php.110: using json (no callback)");
   print $encoded;
 }
 ?>
