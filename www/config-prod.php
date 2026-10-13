@@ -47,6 +47,17 @@ define("config\SHAREDSKINURL", "/shared/skin/");
 define("config\GOOGLEANALYTICSACCOUNT", "UA-23705021-1");
 define("config\SECTIONTEMPLATEDIR", \config\SKINDIR . "tmpl/sections/");
 
+// @since 2026-10-13 — Define \config\DATEFORMAT using the current
+// expanded strftime vocabulary so the achilles vhost pins the
+// |datestamp format explicitly. The zoid6 |datestamp modifier
+// reads \config\DATEFORMAT first; the bbsengine6 modifier falls
+// back to bare DATEFORMAT (which zoid6.php defines later in
+// index.php's load order — different value, but the zoid6 modifier
+// wins because zoid6/smarty precedes bbsengine6/smarty in
+// SMARTYPLUGINSDIR). See bbsengine6/handbook/specs/datestamp.md
+// for the full token list.
+define("config\\DATEFORMAT", "%Y-%m-%d %I:%M%P %Z (%a)");
+
 // Create global aliases for non-SMARTY constants
 // (SMARTY* aliases are created by zoid6config.php)
 define("SITEURL", \config\SITEURL);
