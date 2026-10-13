@@ -9,7 +9,7 @@ $name = $_GET['name'] ?? '';
 // Security: allow only alphanumeric, underscores, and hyphens
 $name = preg_replace('/[^a-zA-Z0-9_-]/', '', $name); 
 
-$templatePath = "sections/${name}.tmpl";
+$templatePath = "sections/{$name}.tmpl";
 
 
 // Check if the file exists within the smarty template directory
