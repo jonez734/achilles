@@ -237,7 +237,7 @@ class FoodItem
 
     $form->addDataSource(new \HTML_QuickForm2_DataSource_Array($const));
 
-    $res = \bbsengine6\handleform($form, array($this, "insert"), "add fooditem");
+    $res = \bbsengine6\handleform($form, array($this, "insert"));
     if ($res === true)
     {
       \bbsengine6\util\logentry("achilles.fooditem.add.102: handleform(...) returned true");
