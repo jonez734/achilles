@@ -82,6 +82,9 @@ class index
     $data["healthlinks"] = $healthlinks;
     $data["pagetemplate"] = "index.tmpl"; // achilles-page.tmpl";
 
+    $tmplpath = \bbsengine6\template\extra()[0] . "/index.tmpl";
+    $data["lastmodified"] = file_exists($tmplpath) ? filemtime($tmplpath) : false;
+
     $choices = [];
     if (\bbsengine6\member\lib\checkflag("SYSOP"))
     {
