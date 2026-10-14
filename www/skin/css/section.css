@@ -31,3 +31,24 @@
   margin: 0;
   flex: 1;
 }
+
+.expand-all {
+  cursor: pointer;
+  margin: 0.5em 0.25em;
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+}
+
+@media print {
+  .blurb.section .body {
+    display: block !important;
+  }
+
+  .blurb.section .header .arrow {
+    display: none;
+  }
+
+  .expand-all {
+    display: none;
+  }
+}

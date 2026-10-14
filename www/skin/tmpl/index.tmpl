@@ -14,6 +14,8 @@
 {block name="content"}
 {include file="00-warnings.tmpl"}
 
+<button type="button" class="expand-all" data-expand-all>Expand all / Print</button>
+
 {foreach $data.sections as $name => $config}
   {include file="section.tmpl" name=$name config=$config}
 {/foreach}
