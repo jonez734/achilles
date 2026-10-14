@@ -102,8 +102,15 @@ class index
     $sections = [];
     foreach ($sectionnames as $name) {
       $tmplpath = SECTIONTEMPLATEDIR . $name . ".tmpl";
+      $open = false;
+      if (file_exists($tmplpath)) {
+        $tmplsrc = file_get_contents($tmplpath);
+        if ($tmplsrc !== false && preg_match('/data-state\s*=\s*"open"/i', $tmplsrc) === 1) {
+          $open = true;
+        }
+      }
       $sections[$name] = [
-        'open' => false,
+        'open' => $open,
         'lastmodified' => file_exists($tmplpath) ? filemtime($tmplpath) : false,
       ];
     }
