@@ -9,6 +9,45 @@
 <link rel="stylesheet" type="text/css" href="{$smarty.const.SKINURL}css/section.css" media="all" />
 
 <link rel="stylesheet" type="text/css" href="{$smarty.const.SKINURL}css/achilles.css" media="screen" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "@id": "{$smarty.const.SITEURL|escape:'json'}",
+  "url": "{$smarty.const.SITEURL|escape:'json'}",
+  "name": "{$smarty.const.SITETITLE|escape:'json'}",
+  "headline": "achilles - a study of sodium glutamates",
+  "description": "{$smarty.const.SITEDESCRIPTION|escape:'json'}",
+  "inLanguage": "en-us",
+  "isAccessibleForFree": true,
+  "dateModified": "{$data.lastmodified_aggregate|date_format:'%Y-%m-%dT%H:%M:%SZ'}",
+  "lastReviewed": "{$data.lastmodified_aggregate|date_format:'%Y-%m-%d'}",
+  "audience": "https://schema.org/Patient",
+  "specialty": "https://schema.org/DietNutrition",
+  "about": [
+    {
+      "@type": "MedicalSubstance",
+      "name": "Monosodium glutamate",
+      "alternateName": "MSG",
+      "chemicalFormula": "C5H8NO4Na",
+      "identifier": "E621"
+    },
+    {
+      "@type": "MedicalSubstance",
+      "name": "Disodium glutamate",
+      "alternateName": "DSG",
+      "chemicalFormula": "C5H7NO4Na2",
+      "identifier": "E622"
+    }
+  ],
+  "publisher": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" },
+  "isPartOf": { "@id": "{$smarty.const.SITEURL|escape:'json'}#website" },
+  "publishingPrinciples": "{$smarty.const.SITEURL|escape:'json'}#section-00-warnings",
+  "mainContentOfPage": [
+    {foreach $data.sections as $name => $config}"{$name|escape:'json'}"{if !$config@last}, {/if}{/foreach}
+  ]
+}
+</script>
 {/block}
 {block name="title"}achilles - a study of sodium glutamates{/block}
 {block name="content"}
