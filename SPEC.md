@@ -170,6 +170,33 @@ def create(args, **kwargs) -> Optional[FoodItem]
 
 ## PHP Web Interface
 
+### `lastmodified` rendering
+
+Achilles was the first vhost to ship a per-section
+`lastmodified` display: `achilles/www/skin/tmpl/section.tmpl:3-7`
+renders a `<span class="lastmodified">` (formatted by the
+Smarty `|datestamp` modifier) inside a `<div class="metadata">`
+block below each section's H1. The timestamp is sourced from
+`filemtime()` on the section's `.tmpl` file (set in
+`achilles/www/php/index.php`).
+
+The same pattern was extended to the blurb and folder pages
+of the teos and handbook vhosts in 2026-10-15 via the shared
+engine templates at
+`bbsengine6/skin/tmpl/page-markdown-sections.tmpl` and
+`bbsengine6/skin/tmpl/folder.tmpl`. For those vhosts, the
+timestamp is sourced from the blurb's frontmatter
+`lastmodified:` key (managed by the meta-repo
+`blurbs/Makefile::prod`) with a `filemtime($blurbfile)`
+fallback. Achilles continues to use its own `filemtime()`
+approach because the section `.tmpl` files don't carry
+frontmatter. The visual structure (`.metadata` wrapper +
+`.lastmodified` span) is the same across all three vhosts.
+
+See `bbsengine6/handbook/specs/blurb.md` §"Lastmodified
+rendering" and `bbsengine6/handbook/specs/decisions.md`
+ADR 16 for the full contract.
+
 ### www/php/database.php
 
 PDO-based database layer for Achilles:
