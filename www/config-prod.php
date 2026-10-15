@@ -9,6 +9,7 @@ require_once('util.php');
 define("config\SITENAME", "achilles");
 define("config\SITEADMINEMAIL", "achilles <achilles@projects.zoidtechnologies.com>");
 define("config\SITETITLE", "Project Achilles - A study of the affects of flavor enhancers on health");
+define("config\PROJECTNAME", "Project Achilles");
 define("config\SITEURL", "/achilles/");
 define("config\SITEKEYWORDS", "project achilles, monosodium glutamate, mono-sodium glutamate, msg, glutamate, disodium glutamate, truth in labeling, health, nutrition, consumer protection, food additives");
 define("config\SITEDESCRIPTION", "Project Achilles studies the affects of flavor enhancers on health");
@@ -60,6 +61,11 @@ define("config\\DATEFORMAT", "%Y-%m-%d %I:%M%P %Z (%a)");
 
 // Create global aliases for non-SMARTY constants
 // (SMARTY* aliases are created by zoid6config.php)
+define("SITENAME", \config\SITENAME);
+define("SITETITLE", \config\SITETITLE);
+define("PROJECTNAME", \config\PROJECTNAME);
+define("SITEDESCRIPTION", \config\SITEDESCRIPTION);
+define("SITEKEYWORDS", \config\SITEKEYWORDS);
 define("SITEURL", \config\SITEURL);
 define("VHOSTDIR", \config\VHOSTDIR);
 define("DOCUMENTROOT", \config\DOCUMENTROOT);
