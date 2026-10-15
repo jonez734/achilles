@@ -1,23 +1,58 @@
-<div class="blurb">
+<div class="blurb" itemscope itemtype="https://schema.org/WebPage">
+<meta itemprop="specialty" content="https://schema.org/DietNutrition" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ClaimReview",
+      "@id": "{$smarty.const.SITEURL|escape:'json'}#claim-1",
+      "url": "{$smarty.const.SITEURL|escape:'json'}#claim-1",
+      "claimReviewed": "Fast food restaurants (QSRs) use MSG in some menu items.",
+      "reviewBody": "Validated with 4 independent sources: KFC (Flavor365 2026), Burger King (Chef's Resource 2024), Chick-fil-A (EatHealthy365 2026, official Chick-fil-A 2025).",
+      "datePublished": "2014-08-01",
+      "author": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" }
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "{$smarty.const.SITEURL|escape:'json'}#claim-2",
+      "url": "{$smarty.const.SITEURL|escape:'json'}#claim-2",
+      "claimReviewed": "MSG is classified as Generally Recognized As Safe (GRAS) by the U.S. FDA.",
+      "reviewBody": "Validated with 4 independent sources: FDA Q&A on MSG, FDA GRAS page, FDA Guidance for Industry GRAS FAQ, University of Illinois FSHN dietitian statement.",
+      "datePublished": "2014-08-01",
+      "author": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" }
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "{$smarty.const.SITEURL|escape:'json'}#claim-3",
+      "url": "{$smarty.const.SITEURL|escape:'json'}#claim-3",
+      "claimReviewed": "MSG can cause adverse reactions (notably headaches) in some individuals.",
+      "reviewBody": "Validated with 4 independent sources: 2016 systematic review in Journal of Headache and Pain, 2023 Current Pain and Headache Reports update, 2025 Reconsideration in J Environ Sci Health Part C. Note: MSG and DSG do not cause disease; they may only exacerbate existing symptoms.",
+      "datePublished": "2014-08-01",
+      "author": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" }
+    }
+  ]
+}
+</script>
 <div class="header"><h2>validated claims</h2></div>
 <div class="body">
 <p>The following claims have been validated with 4 independent sources each:</p>
 
-<h3>Claim 1: Fast Food Restaurants Use MSG</h3>
+<h3 id="claim-1">Claim 1: Fast Food Restaurants Use MSG</h3>
 <ul>
 <li>KFC uses MSG in many food items including Original Recipe chicken <sup><a href="#src-qsr-1">qsr-1</a></sup></li>
 <li>Burger King uses MSG in some processed products <sup><a href="#src-qsr-2">qsr-2</a></sup></li>
 <li>Chick-fil-A confirms MSG in some menu items <sup><a href="#src-qsr-3">qsr-3</a>, <a href="#src-qsr-4">qsr-4</a></sup></li>
 </ul>
 
-<h3>Claim 2: MSG is FDA GRAS</h3>
+<h3 id="claim-2">Claim 2: MSG is FDA GRAS</h3>
 <ul>
 <li>FDA considers MSG "Generally Recognized As Safe" (GRAS) <sup><a href="#src-fda">fda</a>, <a href="#src-fda-2">fda-2</a></sup></li>
 <li>University of Illinois dietitians confirm no scientific evidence MSG is harmful <sup><a href="#src-ui">ui</a></sup></li>
 <li>Peer-reviewed studies support MSG safety at normal consumption levels <sup><a href="#src-fda-3">fda-3</a>, <a href="#src-fda-4">fda-4</a>, <a href="#src-fda">fda</a>, <a href="#src-fda-2">fda-2</a></sup></li>
 </ul>
 
-<h3>Claim 3: MSG Can Cause Adverse Reactions</h3>
+<h3 id="claim-3">Claim 3: MSG Can Cause Adverse Reactions</h3>
 <ul>
 <li>Some individuals report headaches after consuming MSG <sup><a href="#src-headache">headache</a>, <a href="#src-headache-2">headache-2</a></sup></li>
 <li>Systematic reviews show mixed evidence requiring more research <sup><a href="#src-headache-3">headache-3</a>, <a href="#src-headache-4">headache-4</a></sup></li>
