@@ -118,6 +118,9 @@ class index
 
     $data["sections"] = $sections;
 
+    $sectionmtimes = array_filter(array_column($sections, "lastmodified"));
+    $data["lastmodified_aggregate"] = !empty($sectionmtimes) ? max($sectionmtimes) : $data["lastmodified"];
+
     \bbsengine6\displaypage($data, "index.tmpl");
     \bbsengine6\util\logentry("achilles.100: ".var_export($data, true));
     return;
