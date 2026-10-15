@@ -208,6 +208,22 @@ class fooditem
 | list | List fooditems (TODO) |
 | search | Search fooditems (TODO) |
 
+### Schema.org Markup
+
+The site-level pages (index, about) and per-section templates (`sections/*.tmpl`)
+emit schema.org structured data — JSON-LD `<script type="application/ld+json">`
+blocks plus microdata (`itemscope`/`itemprop`) on the surrounding elements. See
+`page.tmpl` for the canonical `WebSite` + `Organization` `@graph` and
+`index.tmpl` for the page-level `MedicalWebPage`. Per-section markup covers
+`MedicalSubstance` (MSG/DSG), `MedicalCondition` (MSG Symptom Complex),
+`ClaimReview` (validated claims), `ItemList` (sources), and `AboutPage`
+(about page).
+
+**TODO:** fooditem detail view (currently only the add form exists) should
+emit `Product`/`MenuItem` microdata plus a `Recipe`/`NutritionInformation`
+block for items with ingredients and MSG/DSG flags. Defer until the display
+template is added.
+
 ### Dependencies
 
 - bbsengine6\engine - Core engine functions
