@@ -1,10 +1,25 @@
 {extends file="page.tmpl"}
 {block name="head" append}
 <link rel="stylesheet" type="text/css" href="{$smarty.const.STATICSKINURL}/css/about.css" media="screen" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "{$smarty.const.SITEURL|escape:'json'}about#webpage",
+  "url": "{$smarty.const.SITEURL|escape:'json'}about",
+  "name": "About {$smarty.const.PROJECTNAME|escape:'json'}",
+  "description": "{$smarty.const.SITEDESCRIPTION|escape:'json'}",
+  "inLanguage": "en-us",
+  "isPartOf": { "@id": "{$smarty.const.SITEURL|escape:'json'}#website" },
+  "mainEntity": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" }
+}
+</script>
 {/block}
 {block name="content"}
-<div class="blurb about">
-<div class="header"><h1>About Achilles</h1></div>
+<div class="blurb about" itemscope itemtype="https://schema.org/AboutPage">
+<meta itemprop="name" content="About {$smarty.const.PROJECTNAME|escape:'html'}" />
+<meta itemprop="url" content="{$smarty.const.SITEURL|escape:'html'}about" />
+<div class="header"><h1>About {$smarty.const.PROJECTNAME}</h1></div>
 <div class="body">
 <p>Achilles was first published as a website in August, 2014. The aim of the project is
 to study the affects of consuming monosodium glutamate (MSG), especially
