@@ -1,6 +1,35 @@
 <!DOCTYPE html> {*HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">*}
 <html lang="en-us" id="html">
 <head id="head" itemscope itemtype="https://schema.org/WebSite">
+<link itemprop="url" href="{$smarty.const.SITEURL|escape:'html'}" />
+<meta itemprop="name" content="{$smarty.const.SITETITLE|escape:'html'}" />
+<meta itemprop="description" content="{$smarty.const.SITEDESCRIPTION|escape:'html'}" />
+<meta itemprop="inLanguage" content="en-us" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{$smarty.const.SITEURL|escape:'json'}#website",
+      "url": "{$smarty.const.SITEURL|escape:'json'}",
+      "name": "{$smarty.const.SITETITLE|escape:'json'}",
+      "description": "{$smarty.const.SITEDESCRIPTION|escape:'json'}",
+      "inLanguage": "en-us",
+      "keywords": "{$smarty.const.SITEKEYWORDS|escape:'json'}",
+      "publisher": { "@id": "{$smarty.const.SITEURL|escape:'json'}#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "{$smarty.const.SITEURL|escape:'json'}#organization",
+      "name": "{$smarty.const.PROJECTNAME|escape:'json'}",
+      "alternateName": "achilles",
+      "url": "{$smarty.const.SITEURL|escape:'json'}",
+      "description": "{$smarty.const.SITEDESCRIPTION|escape:'json'}"
+    }
+  ]
+}
+</script>
 {block name="head"}
 <!-- page.tmpl in achilles -->
 <meta charset="utf-8">
